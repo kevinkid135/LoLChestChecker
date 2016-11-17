@@ -31,6 +31,7 @@ function getSummID($region, $summName){
 	return $id[0]['id'];
 }
 
+/* Returns the list of champions sorted in alphabetical order */
 function getChampionList($region){
 	global $API_KEY;
 	global $API_URL;
@@ -44,13 +45,14 @@ function getChampionList($region){
 	$result=curl_exec($ch); // execute cURL
 	curl_close($ch); // close cURL
 
-	$champions = json2arr($result);
-	// var_dump($champions[2]);
-	/**/
-	foreach($champions[2] as $key => $value){
-		echo $key . "<br>";
+	// fill champList with champion names
+	foreach(json2arr($result)[2] as $key => $value){
+		$champList[] = $key;
 	}
-	/**/
+
+	sort($champList);
+
+	return $champList;
 }
 
 ?>
