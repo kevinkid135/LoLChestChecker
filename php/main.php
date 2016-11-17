@@ -25,7 +25,13 @@
 <br>
 <!-- select champion -->
 <?php
-getChampionList('na');
+$champList = getChampList($region);
+
+foreach ($champList as $c){
+	echo $c;
+	echo "<br>";
+}
+
 ?>
 </body>
 </html>
