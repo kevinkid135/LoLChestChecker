@@ -7,7 +7,7 @@ $API_URL = 'https://na.api.pvp.net';
 	$API_URL is the first half of the URL, the part which is the same throughout all API requests
 	$URL2 is the second part, which changes depending on what information you want to get from the Riot API.
  */
-function useCURL($API_URL, $URL2){
+	function useCURL($API_URL, $URL2){
 	$ch = curl_init(); // Initiates cURL
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Disable SSL verification
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // return response
@@ -18,7 +18,7 @@ function useCURL($API_URL, $URL2){
 }
 
 /*  Helper function: converts jason string into an array,
-	then into array which can be accessed by index */
+then into array which can be accessed by index */
 function json2arr($j){
 	return array_values(json_decode($j, true));
 }
@@ -43,7 +43,7 @@ function getChampList_JSON($region){
 }
 
 /*  Returns summoner ID,
-	given summoner name and region */
+given summoner name and region */
 function getSummID($region, $summName){
 	global $API_KEY;
 	global $API_URL;
@@ -63,11 +63,24 @@ function getChampList_NAME($region){
 	return $champList;
 }
 
-//TODO 
-function getChampID($region, $champion){
+/*  Returns the champion ID
+	given region and champion key*/
+function getChampID($region, $championKey){
 	$result = getChampList_JSON($region);
-	var_dump(json2arr($result));
-	return NULL;
+	$champList = json2arr($result);
+
+	// finds champion id using champion key
+	foreach ($champList[2] as $key => $value) {
+		if ($championKey == $key){
+			return $value['id'];
+		}
+	}
+	return NULL; // champion not found
+}
+
+//TODO check if chest is already unlocked for champion
+function chestGranted($region, $champID){
+	
 }
 
 ?>

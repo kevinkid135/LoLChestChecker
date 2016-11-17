@@ -27,13 +27,13 @@
 <?php
 $champList = getChampList_NAME($region);
 
-// getChampID($region, 'vi');
+echo getChampID($region, 'Jax');
 
 // print array
-foreach ($champList as $c){
-	echo $c;
-	echo "<br>";
-}
+// foreach ($champList as $c){
+// 	echo $c;
+// 	echo "<br>";
+// }
 
 ?>
 </body>
