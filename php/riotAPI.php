@@ -23,6 +23,17 @@ function json2arr($j){
 	return array_values(json_decode($j, true));
 }
 
+/* Helper Function: Returns an array of champion keys*/
+function getChampList_KEY($region){
+	$result = getChampList_JSON($region);
+	// fill champList with champion keys
+	foreach(json2arr($result)[2] as $key => $value){
+		$champList[] = $key;
+	}
+	// sort($champList);
+	return $champList;
+}
+
 /* Returns the champion list in JSON format */
 function getChampList_JSON($region){
 	global $API_KEY;
@@ -41,12 +52,12 @@ function getSummID($region, $summName){
 	return json2arr($result)[0]['id']; // get only the ID
 }
 
-/* Returns the list of champions sorted in alphabetical order */
-function getChampList($region){
+/* Returns an array of champion names sorted in alphabetical order */
+function getChampList_NAME($region){
 	$result = getChampList_JSON($region);
 	// fill champList with champion names
 	foreach(json2arr($result)[2] as $key => $value){
-		$champList[] = $key;
+		$champList[] = $value['name'];
 	}
 	sort($champList);
 	return $champList;
@@ -55,6 +66,7 @@ function getChampList($region){
 //TODO 
 function getChampID($region, $champion){
 	$result = getChampList_JSON($region);
+	var_dump(json2arr($result));
 	return NULL;
 }
 

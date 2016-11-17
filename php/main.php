@@ -25,8 +25,11 @@
 <br>
 <!-- select champion -->
 <?php
-$champList = getChampList($region);
+$champList = getChampList_NAME($region);
 
+// getChampID($region, 'vi');
+
+// print array
 foreach ($champList as $c){
 	echo $c;
 	echo "<br>";
