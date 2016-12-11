@@ -29,7 +29,7 @@ These will be features that I've thought of, but have not figured out how to imp
 * Apply constant code refractoring to maintain clean and readbale code that is easily maintained in later stages
 * Learn to work with an API (riot API)
 * Have a high quality assurance
-	* avoid code smells
+	* Avoid code smells
 * Create test cases
 * Learn to use GitHub
 	* Creating a proper README
