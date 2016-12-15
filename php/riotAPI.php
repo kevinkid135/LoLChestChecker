@@ -1,7 +1,7 @@
 <?php
 // API Variables
 include 'config.php'; // $API_KEY
-$API_KEY = '?api_key=' . $API_KEY;
+$API_KEY = 'api_key=' . $API_KEY;
 $API_URL = 'https://global.api.pvp.net';
 
 /****************
@@ -42,6 +42,15 @@ function json2arr($json) {
  * Riot API functions (static)
  *****************************/
 
+function getCurrentVersion($region) {
+    global $API_KEY;
+    global $API_URL;
+    $URL2 = '/api/lol/static-data/' . $region . '/v1.2/versions?' . $API_KEY;
+    $result = useCURL($API_URL, $URL2);
+    $result = json2arr($result);
+    return $result[0];
+}
+
 /**
  * Returns array of champions and simple information
  *
@@ -58,7 +67,7 @@ function json2arr($json) {
 function getChampList_ARRAY($region) {
     global $API_KEY;
     global $API_URL;
-    $URL2 = '/api/lol/static-data/' . $region . '/v1.2/champion' . $API_KEY;
+    $URL2 = '/api/lol/static-data/' . $region . '/v1.2/champion?' . $API_KEY;
     $result = useCURL($API_URL, $URL2);
     $result = json2arr($result);
     $result = $result[2];
@@ -81,6 +90,18 @@ function getChampList_KEY($region) {
     }
     // sort($champList);
     return $champList;
+}
+
+// TODO get a list of images
+function getChampListImages_ARRAY($region) {
+    $result = getChampList_KEY($region);
+    $version = getCurrentVersion($region);
+    // fill champList with champion image links
+    foreach ($result as $i => $key) {
+        $champImageLinks[] = "http://ddragon.leagueoflegends.com/cdn/" . $version . "/img/champion/" . $key . ".png";
+    }
+
+    return $champImageLinks;
 }
 
 /**
@@ -111,17 +132,12 @@ function getChampList_NAME($region) {
 function getChampName($region, $champID) {
     global $API_KEY;
     global $API_URL;
-    $URL2 = '/api/lol/static-data/' . $region . '/v1.2/champion/' . $champID . $API_KEY;
+    $URL2 = '/api/lol/static-data/' . $region . '/v1.2/champion/' . $champID . '?' . $API_KEY;
     $result = useCURL($API_URL, $URL2);
     $result = json2arr($result);
 
     return $result[2];
 }
-
-/******************
- * Riot API functions
- ******************/
-
 
 /**
  * Returns the champion ID given region and champion key.
@@ -161,10 +177,13 @@ function getChampID($region, $championKey) {
 function getChampInfo_ARRAY($region, $champID) {
     global $API_KEY;
     global $API_URL;
-    $newAPIKEY = substr($API_KEY, 1); // remove the '?' at the beginning of the string to append otions
-    $URL2 = '/api/lol/static-data/' . $region . '/v1.2/champion/' . $champID . '?champData=image&' . $newAPIKEY;
+    $URL2 = '/api/lol/static-data/' . $region . '/v1.2/champion/' . $champID . '?champData=image&' . $API_KEY;
     return json2arr(useCURL($API_URL, $URL2));
 }
+
+/******************
+ * Riot API functions
+ ******************/
 
 /**
  * Mastery information on every champion obtained by summoner array of champions (use index) <br>
@@ -186,13 +205,13 @@ function getChampInfo_ARRAY($region, $champID) {
 function getChampMasteryList_ARRAY($region, $summID) {
     global $API_KEY;
     global $API_URL;
-    $URL2 = '/championmastery/location/' . $region . '1' . '/player/' . $summID . '/champions' . $API_KEY;
+    $URL2 = '/championmastery/location/' . $region . '1' . '/player/' . $summID . '/champions?' . $API_KEY;
     $result = useCURL($API_URL, $URL2);
     $result = json2arr($result);
 
     // error code obtained; try removing '1' from region.
     if (sizeof($result) < 2) {
-        $URL2 = '/championmastery/location/' . $region . '/player/' . $summID . '/champions' . $API_KEY;
+        $URL2 = '/championmastery/location/' . $region . '/player/' . $summID . '/champions?' . $API_KEY;
         $result = useCURL($API_URL, $URL2);
         $result = json2arr($result);
 
@@ -225,7 +244,7 @@ function getSumm_ARRAY($region, $summName) {
     $summName = preg_replace('/\s+/', '', $summName); // remove spaces from name
     global $API_KEY;
     global $API_URL;
-    $URL2 = '/api/lol/' . $region . '/v1.4/summoner/by-name/' . $summName . $API_KEY;
+    $URL2 = '/api/lol/' . $region . '/v1.4/summoner/by-name/' . $summName . '?' . $API_KEY;
     $result = useCURL($API_URL, $URL2);
     return json2arr($result)[0];
 }

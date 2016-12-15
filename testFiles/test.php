@@ -8,11 +8,12 @@
 <?php
 include '../php/riotapi.php';
 ?>
-<h2>Testing: getChampName</h2>
+<h2>Testing: getChampListImages_ARRAY</h2>
 <div class="section">
     <?php
-    $arr = getChampName('NA', 5);
-    var_dump($arr);
+    $result = getChampListImages_ARRAY('NA');
+    var_dump($result);
+    //    echo $result;
     ?>
 </div>
 </body>
