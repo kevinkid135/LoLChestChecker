@@ -48,6 +48,7 @@ function json2arr($json) {
  * @param string $region
  *
  * @return array
+ * Array of champions, with details:<br>
  * [0] id: int <br>
  * [1] key: string <br>
  * [2] name: string <br>
@@ -70,7 +71,7 @@ function getChampList_ARRAY($region) {
  *
  * @param string $region
  *
- * @return array
+ * @return array Array of champions keys
  */
 function getChampList_KEY($region) {
     $result = getChampList_ARRAY($region);
@@ -87,7 +88,7 @@ function getChampList_KEY($region) {
  *
  * @param string $region
  *
- * @return array
+ * @return array Array of champions names
  */
 function getChampList_NAME($region) {
     $result = getChampList_ARRAY($region);
@@ -105,18 +106,16 @@ function getChampList_NAME($region) {
  * @param string $region
  * @param string $champID
  *
- * @return string
+ * @return string The champion's name
  */
-function champName($region, $champID) {
+function getChampName($region, $champID) {
     global $API_KEY;
     global $API_URL;
     $URL2 = '/api/lol/static-data/' . $region . '/v1.2/champion/' . $champID . $API_KEY;
     $result = useCURL($API_URL, $URL2);
     $result = json2arr($result);
 
-    // TODO return champion name based on ID
-    var_dump($result);
-    return $result;
+    return $result[2];
 }
 
 /******************
@@ -128,7 +127,7 @@ function champName($region, $champID) {
  * Returns the champion ID given region and champion key.
  *
  * @param string $region
- * @param string $championKey Case sensitive
+ * @param string $championKey First letter capital, not space
  *
  * @return int The champion ID
  */
@@ -152,6 +151,7 @@ function getChampID($region, $championKey) {
  * @param string $champID
  *
  * @return array
+ * Array of detailed information regarding a specific champion:<br>
  * [id] int <br>
  * [name] string <br>
  * [key] string <br>
@@ -172,7 +172,8 @@ function getChampInfo_ARRAY($region, $champID) {
  * @param string $region
  * @param string $summID
  *
- * @return array|null
+ * @return array
+ * An array of champions, specifically about champion mastery:<br>
  * [championID] int <br>
  * [championLevel] int <br>
  * [championPoints] int <br>
@@ -213,6 +214,7 @@ function getChampMasteryList_ARRAY($region, $summID) {
  * @param string $summName
  *
  * @return array
+ * Array of information regarding a particular summoner:<br>
  * [id] long <br>
  * [name] string <br>
  * [profileIconId] int <br>

@@ -9,7 +9,8 @@
 </head>
 
 <body>
-<a href="testFiles/test.php">TEST</a> <!-- for testing -->
+<a href="testFiles/test.php">Single test</a> <!-- for testing -->
+<a href="testFiles/functionTests.php">Function Tests</a> <!-- for testing -->
 	
 	<form action="php/main.php" method="GET">
         <input type="text" name="summName" placeholder="Summoner Name" autofocus="autofocus" required>
