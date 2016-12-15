@@ -5,9 +5,6 @@
 	<meta charset="utf-8">
 
 	<title>Check Mastery Chest</title>
-	<!--[if lt IE 9]>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
-	<![endif]-->
 </head>
 
 <body>
@@ -15,7 +12,7 @@
 	include 'riotapi.php';
 	$summName = $_GET["summName"];
 	$region = $_GET["region"];
-	$summID = getSummID($region, $summName);
+$summID = getSumm_ARRAY($region, $summName)['id'];
 
 	// ign and id
 	echo "IGN: " . $summName;
@@ -25,16 +22,10 @@
 <br>
 <!-- select champion -->
 <?php
-$champList = getChampList_NAME($region);
-
-echo getChampID($region, 'Jax');
-
-// print array
-// foreach ($champList as $c){
-// 	echo $c;
-// 	echo "<br>";
-// }
-
+$test = getChampID($region, 'Vi');
+$test = getChampInfo_ARRAY($region, $test);
+// $test = getChampList_ARRAY($region);
+var_dump($test);
 ?>
 </body>
 </html>
