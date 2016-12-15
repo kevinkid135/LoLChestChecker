@@ -22,10 +22,19 @@ echo "Your summoner ID is: " . $summID;
 <br>
 <!-- Show all champions -->
 <?php
-foreach (getChampMasteryList_ARRAY($region, $summID) as $key => $arr) {
-    echo $arr['name'];
-    echo ":";
-    echo $arr['chestGranted'];
+$champMasteryList = getChampMasteryList_ARRAY($region, $summID);
+foreach ($champMasteryList as $key => $arr) {
+    // TODO figure out how to get champion names faster.
+    // Not only does this take more than one minute to complete, it makes a lot of calls to riot API
+    // echo getChampName($region, $arr['championId']);
+    echo $arr['championId'];
+    echo " : ";
+    if ($arr['chestGranted'] == 1) {
+        echo 'true';
+    } else {
+        echo 'false';
+    }
+    echo '<br>';
 }
 ?>
 </body>
