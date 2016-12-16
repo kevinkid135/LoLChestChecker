@@ -9,7 +9,8 @@ $API_URL = 'https://global.api.pvp.net';
  ****************/
 
 /**
- * Helper function: Get JSON contents from Riot API.
+ * Helper function:<br>
+ * Get JSON contents from Riot API.
  *
  * @param string $API_URL the first half of the URL, the part which is the same throughout all API requests
  * @param string $URL2 the second part, which changes depending on what information you want to get from the Riot API.
@@ -42,6 +43,13 @@ function json2arr($json) {
  * Riot API functions (static)
  *****************************/
 
+/**
+ * Returns the current version of the game
+ *
+ * @param $region
+ *
+ * @return string Current version of the game
+ */
 function getCurrentVersion($region) {
     global $API_KEY;
     global $API_URL;
@@ -75,33 +83,50 @@ function getChampList_ARRAY($region) {
 }
 
 /**
- * Static Elements:<br>
- * Returns an array of champion keys
+ * Returns an array of ids and its corresponding keys
  *
  * @param string $region
  *
- * @return array Array of champions keys
+ * @return array id=>key
  */
 function getChampList_KEY($region) {
     $result = getChampList_ARRAY($region);
     // fill champList with champion keys
+    $champList = array();
     foreach ($result as $key => $value) {
-        $champList[] = $key;
+        $champList[$value['id']] = $key;
     }
-    // sort($champList);
+    // sort($champList); // can sort the strings
     return $champList;
 }
 
-// TODO get a list of images
+/**
+ * Returns an array of links to champion portrait
+ *
+ * @param $region
+ *
+ * @return array array of champion images
+ */
 function getChampListImages_ARRAY($region) {
     $result = getChampList_KEY($region);
     $version = getCurrentVersion($region);
     // fill champList with champion image links
-    foreach ($result as $i => $key) {
+    foreach ($result as $key) {
         $champImageLinks[] = "http://ddragon.leagueoflegends.com/cdn/" . $version . "/img/champion/" . $key . ".png";
     }
-
     return $champImageLinks;
+}
+
+/**
+ * Returns the champion portrait given region and champKey
+ *
+ * @param $champKey
+ * @param $version
+ *
+ * @return string
+ */
+function getChampPortrait($champKey, $version) {
+    return "http://ddragon.leagueoflegends.com/cdn/" . $version . "/img/champion/" . $champKey . ".png";
 }
 
 /**
@@ -221,9 +246,7 @@ function getChampMasteryList_ARRAY($region, $summID) {
             return NULL;
         }
     }
-
     return $result;
-
 }
 
 /**

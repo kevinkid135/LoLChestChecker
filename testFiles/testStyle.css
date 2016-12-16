@@ -1,5 +1,6 @@
 .section {
     padding: 16px;
+    margin: 1em;
 
     max-height: 260px;
     width: 75em;

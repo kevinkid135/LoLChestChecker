@@ -5,6 +5,7 @@
     <meta charset="utf-8">
 
     <title>Check Mastery Chest</title>
+    <link rel="stylesheet" href="../css/main.css">
 </head>
 
 <body>
@@ -22,26 +23,16 @@ echo "Your summoner ID is: " . $summID;
 <br>
 <!-- Show all champions -->
 <?php
+$champListId_key = getChampList_KEY($region);
 $champMasteryList = getChampMasteryList_ARRAY($region, $summID);
-foreach ($champMasteryList as $key => $arr) {
-    // TODO figure out how to get champion names faster.
-    // Not only does this take more than one minute to complete, it makes a lot of calls to riot API
-    /* Possible solution
-    getChampMasterList (this will be sorted by points)
-    sort the result by name
-    getChampionName array (this is already sorted by name)
-
-    match both results and put them into an array
-    */
-    // echo getChampName($region, $arr['championId']);
-    echo $arr['championId'];
-    echo " : ";
+$version = getCurrentVersion($region);
+foreach ($champMasteryList as $arr) {
+    $link = getChampPortrait($champListId_key[$arr['championId']], $version);
     if ($arr['chestGranted'] == 1) {
-        echo 'true';
+        echo '<img src="' . $link . '" alt="Champion Image" style="border-color:green">';
     } else {
-        echo 'false';
+        echo '<img src="' . $link . '" alt="Champion Image" style="border-color:red">';
     }
-    echo '<br>';
 }
 ?>
 </body>

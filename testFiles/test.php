@@ -12,7 +12,9 @@ include '../php/riotapi.php';
 <div class="section">
     <?php
     $result = getChampListImages_ARRAY('NA');
-    var_dump($result);
+    foreach ($result as $link) {
+        echo '<img src="' . $link . '" alt="Champion Image" style="margin:5px;height:100px;width:100px">';
+    }
     //    echo $result;
     ?>
 </div>
