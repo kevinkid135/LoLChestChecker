@@ -3,6 +3,7 @@
 include 'config.php'; // $API_KEY
 $API_KEY = 'api_key=' . $API_KEY;
 $API_URL = 'https://global.api.pvp.net';
+$regionList = array('NA', 'BR', 'EUNE', 'EUW', 'JP', 'KR', 'LAN', 'LAS', 'OCE', 'RU', 'TR');
 
 /****************
  * Helper Functions

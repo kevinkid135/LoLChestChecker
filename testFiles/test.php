@@ -8,14 +8,8 @@
 <?php
 include '../php/riotapi.php';
 ?>
-<h2>Testing: getChampListImages_ARRAY</h2>
-<div class="section">
-    <?php
-    $result = getChampListImages_ARRAY('NA');
-    foreach ($result as $link) {
-        echo '<img src="' . $link . '" alt="Champion Image" style="margin:5px;height:100px;width:100px">';
-    }
-    //    echo $result;
-    ?>
-</div>
+<form name="summNameForm" action="test2.php" method="GET">
+    <input type="text" name="summName" placeholder="Summoner Name" autofocus="autofocus" required>
+    <input type="submit" value="Search"/>
+</form>
 </body>

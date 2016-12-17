@@ -1,0 +1,20 @@
+img {
+    margin: 10px;
+    height: 100px;
+    width: 100px;
+}
+
+body {
+    margin: 10%;
+    text-align: center;
+    background-color: grey;
+}
+
+.granted {
+    box-shadow: 0 0 20px #00a9d3;
+}
+
+.notGranted {
+    filter: grayscale(100%);
+    box-shadow: 0 0 5px #fff;
+}

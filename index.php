@@ -5,14 +5,14 @@
 	<meta charset="utf-8">
 
 	<title>Check Mastery Chest</title>
-	<link rel="stylesheet" href="css/main.css?v=1.0">
+    <link rel="stylesheet" href="css/index.css">
 </head>
 
 <body>
 <a href="testFiles/test.php">Single test</a> <!-- for testing -->
 <a href="testFiles/functionTests.php">Function Tests</a> <!-- for testing -->
-	
-	<form action="php/main.php" method="GET">
+
+<form action="php/chestInfo.php" method="GET">
         <input type="text" name="summName" placeholder="Summoner Name" autofocus="autofocus" required>
 		<select name="region">
 			<option value="NA">NA</option>
@@ -26,7 +26,6 @@
 			<option value="KR">KR</option>
 			<option value="LAN">LAN</option>
 			<option value="LAS">LAS</option>
-			<option value="NA">NA</option>
 			<option value="OCE">OCE</option>
 			<option value="RU">RU</option>
 			<option value="TR">TR</option>

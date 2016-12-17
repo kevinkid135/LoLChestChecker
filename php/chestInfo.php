@@ -5,15 +5,22 @@
     <meta charset="utf-8">
 
     <title>Check Mastery Chest</title>
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/chestInfo.css">
 </head>
 
 <body>
 <?php
 include 'riotapi.php';
-$summName = $_GET["summName"];
+global $regionList;
 $region = $_GET["region"];
-$summID = getSumm_ARRAY($region, $summName)['id'];
+$summName = $_GET["summName"];
+$summID = getSumm_ARRAY($region, $summName);
+// check for error in region or summoner name.
+if (count($summID) == 2 || !in_array($region, $regionList)) {
+    header("Location: errorPage.php");
+    exit();
+}
+$summID = $summID['id'];
 
 // ign and id
 echo "IGN: " . $summName;
@@ -29,9 +36,9 @@ $version = getCurrentVersion($region);
 foreach ($champMasteryList as $arr) {
     $link = getChampPortrait($champListId_key[$arr['championId']], $version);
     if ($arr['chestGranted'] == 1) {
-        echo '<img src="' . $link . '" alt="Champion Image" style="border-color:green">';
+        echo '<img src="' . $link . '" alt="Champion Portrait" class="granted">';
     } else {
-        echo '<img src="' . $link . '" alt="Champion Image" style="border-color:red">';
+        echo '<img src="' . $link . '" alt="Champion Portrait" class="notGranted">';
     }
 }
 ?>
