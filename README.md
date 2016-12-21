@@ -25,7 +25,7 @@ These will be features that I've thought of, but have not figured out how to imp
 	* If there has been a game won in the past 22 hours, I will need to check IP earned.
 
 ### Personal Goals with this project:
-* Creatae a usable and functional website
+* Create a usable and functional website
 * Apply constant code refractoring to maintain clean and readbale code that is easily maintained in later stages
 * Learn to work with an API (riot API)
 * Have a high quality assurance
