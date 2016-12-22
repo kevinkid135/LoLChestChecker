@@ -23,9 +23,15 @@ These will be features that I've thought of, but have not figured out how to imp
 * First win of the day
 	* Since the riot API doesn't give any information regarding if the FWOTD is up, I plan to calculate that on my own. A very simple case would be if no game has been won in the past 22 hours, it will be up.
 	* If there has been a game won in the past 22 hours, I will need to check IP earned.
+	
+* Create an offline JSON file of static champion information.
+	* This can be a script ran every time the version has changed since the last run.
+	* The JSON file will 2 identical arrays for faster access:
+		* champID => array(name, key, portraitURL)
+		* champKey => array(name, ID, portraitURL)
 
 ### Personal Goals with this project:
-* Creatae a usable and functional website
+* Create a usable and functional website
 * Apply constant code refractoring to maintain clean and readbale code that is easily maintained in later stages
 * Learn to work with an API (riot API)
 * Have a high quality assurance
