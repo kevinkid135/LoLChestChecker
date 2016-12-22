@@ -2,20 +2,20 @@
 This application allows the user to search up a summoner name and see all chest availability for each champion. All data will be obtained from the riot API.
 
 ## Current Features
-* Display a list of champions and display if the champion's chest has been unlocked yet.
+* Display champion portraits and graphically show if the chest is unlocked or not
+* Sorted by:
+	* champions with chests
+	* alphabetically
 
 ## Planned Features
-* Display champion portraits and graphically show that the chest if chest is unlocked or not
-	* Needs to be blatenly clear at first glance if you do or do not have the chest unlocked.
-* Sort by:
+* Sort by (client side):
 	* Highest mastery rank
 	* Alphabetical
 	* Champions with chests (then alphabetical)
 	* Champions without chests (then alphabetical)
 * Hide/show certain champions based on:
 	* Chest availability
-* Chest Obtained
-* Champion Owned
+	* champion owned
 
 ## Unplanned features
 These will be features that I've thought of, but have not figured out how to implement it yet
