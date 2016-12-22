@@ -40,6 +40,18 @@ function json2arr($json) {
     return array_values(json_decode($json, true));
 }
 
+/**
+ * Returns the champion portrait link given region and champKey
+ *
+ * @param string $champKey champion Key
+ * @param string $version current version
+ *
+ * @return string Champion portrait's link
+ */
+function getChampPortrait($champKey, $version) {
+    return "http://ddragon.leagueoflegends.com/cdn/" . $version . "/img/champion/" . $champKey . ".png";
+}
+
 /*****************************
  * Riot API functions (static)
  *****************************/
@@ -61,7 +73,7 @@ function getCurrentVersion($region) {
 }
 
 /**
- * Returns array of champions and simple information
+ * Returns array of champions and simple information, where the key is the summoner key
  *
  * @param string $region
  *
@@ -71,9 +83,8 @@ function getCurrentVersion($region) {
  * [1] key: string <br>
  * [2] name: string <br>
  * [3] title: string <br>
- * [4] array: image filenames
  */
-function getChampList_ARRAY($region) {
+function getChampListByKey($region) {
     global $API_KEY;
     global $API_URL;
     $URL2 = '/api/lol/static-data/' . $region . '/v1.2/champion?' . $API_KEY;
@@ -84,67 +95,25 @@ function getChampList_ARRAY($region) {
 }
 
 /**
- * Returns an array of ids and its corresponding keys
+ * Returns array of champions and simple information, where the key is the summoner id
  *
  * @param string $region
  *
- * @return array id=>key
+ * @return array
+ * Array of champions, with details:<br>
+ * [0] id: int <br>
+ * [1] key: string <br>
+ * [2] name: string <br>
+ * [3] title: string <br>
  */
-function getChampList_KEY($region) {
-    $result = getChampList_ARRAY($region);
-    // fill champList with champion keys
-    $champList = array();
-    foreach ($result as $key => $value) {
-        $champList[$value['id']] = $key;
-    }
-    // sort($champList); // can sort the strings
-    return $champList;
-}
-
-/**
- * Returns an array of links to champion portrait
- *
- * @param $region
- *
- * @return array array of champion images
- */
-function getChampListImages_ARRAY($region) {
-    $result = getChampList_KEY($region);
-    $version = getCurrentVersion($region);
-    // fill champList with champion image links
-    foreach ($result as $key) {
-        $champImageLinks[] = "http://ddragon.leagueoflegends.com/cdn/" . $version . "/img/champion/" . $key . ".png";
-    }
-    return $champImageLinks;
-}
-
-/**
- * Returns the champion portrait given region and champKey
- *
- * @param $champKey
- * @param $version
- *
- * @return string
- */
-function getChampPortrait($champKey, $version) {
-    return "http://ddragon.leagueoflegends.com/cdn/" . $version . "/img/champion/" . $champKey . ".png";
-}
-
-/**
- * Returns an array of champion names sorted in alphabetical order
- *
- * @param string $region
- *
- * @return array Array of champions names
- */
-function getChampList_NAME($region) {
-    $result = getChampList_ARRAY($region);
-    // fill champList with champion names
-    foreach ($result as $key => $value) {
-        $champList[] = $value['name'];
-    }
-    sort($champList);
-    return $champList;
+function getChampListById($region) {
+    global $API_KEY;
+    global $API_URL;
+    $URL2 = '/api/lol/static-data/' . $region . '/v1.2/champion?dataById=true&' . $API_KEY;
+    $result = useCURL($API_URL, $URL2);
+    $result = json2arr($result);
+    $result = $result[2];
+    return $result;
 }
 
 /**
@@ -174,7 +143,7 @@ function getChampName($region, $champID) {
  * @return int The champion ID
  */
 function getChampID($region, $championKey) {
-    $champList = getChampList_ARRAY($region);
+    $champList = getChampListByKey($region);
 
     // finds champion id using champion key
     foreach ($champList as $key => $value) {

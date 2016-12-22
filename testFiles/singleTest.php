@@ -12,4 +12,18 @@ include '../php/riotapi.php';
     <input type="text" name="summName" placeholder="Summoner Name" autofocus="autofocus" required>
     <input type="submit" value="Search"/>
 </form>
+
+<p>
+    <?php
+    $a = 'a';
+    $b = 'b';
+    if ($a > $b) {
+        echo $a . " is greater than " . $b;
+    } elseif ($a < $b) {
+        echo $a . " is less than " . $b;
+    } else {
+        echo 'idk';
+    }
+    ?>
+</p>
 </body>

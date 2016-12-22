@@ -9,7 +9,7 @@
 </head>
 
 <body>
-<a href="testFiles/test.php">Single test</a> <!-- for testing -->
+<a href="testFiles/singleTest.php">Single test</a> <!-- for testing -->
 <a href="testFiles/functionTests.php">Function Tests</a> <!-- for testing -->
 
 <form action="php/chestInfo.php" method="GET">
