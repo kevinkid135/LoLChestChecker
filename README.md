@@ -30,6 +30,9 @@ These will be features that I've thought of, but have not figured out how to imp
 		* champID => array(name, key, portraitURL)
 		* champKey => array(name, ID, portraitURL)
 
+* Progress bar to show how many chests you've unlocked in the season
+	* The progress bar will indicate the total amount of chests you can unlock in a year, and how much you've unlocked so far
+
 ### Personal Goals with this project:
 * Create a usable and functional website
 * Apply constant code refractoring to maintain clean and readbale code that is easily maintained in later stages
