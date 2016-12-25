@@ -6,6 +6,9 @@ This application allows the user to search up a summoner name and see all chest 
 * Sorted by:
 	* champions with chests
 	* alphabetically
+	
+* FWOTD Calculator
+	* Determines whether FWOTD is up. If not, it will tell you how much time is left.
 
 ## Planned Features
 * Sort by (client side):
@@ -19,10 +22,6 @@ This application allows the user to search up a summoner name and see all chest 
 
 ## Unplanned features
 These will be features that I've thought of, but have not figured out how to implement it yet
-
-* First win of the day
-	* Since the riot API doesn't give any information regarding if the FWOTD is up, I plan to calculate that on my own. A very simple case would be if no game has been won in the past 22 hours, it will be up.
-	* If there has been a game won in the past 22 hours, I will need to check IP earned.
 	
 * Create an offline JSON file of static champion information.
 	* This can be a script ran every time the version has changed since the last run.
