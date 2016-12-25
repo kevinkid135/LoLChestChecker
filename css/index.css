@@ -1,0 +1,57 @@
+/*
+    TODO make background jsut plain black,
+    put hextech img as the header centered
+    if it's a small screen make the hex img shrink
+    have the inputs under all that.
+ */
+
+/* For small width */
+header {
+    color: #d3ceae;
+}
+
+body {
+    background: black url("../img/Hextech_Crafting.jpg") no-repeat fixed center top;
+    background-clip: content-box;
+
+    text-align: center;
+}
+
+input[type=text] {
+    width: 17em; /* Summoner names can only be 16 characters*/
+}
+
+input[type=submit] {
+    width: 65%;
+}
+
+section {
+    margin-top: 10%;
+    padding: 1em;
+    width: 50vw;
+
+    /* vertically center */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#input-field {
+    position: relative;
+    margin-bottom: 1em;
+}
+
+#summInput {
+    margin-bottom: 5px;
+}
+
+#about {
+    color: cornflowerblue;
+}
+
+@media only screen and (min-width: 1280px) {
+    #content {
+        width: 25vw;
+    }
+}

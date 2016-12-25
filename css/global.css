@@ -1,0 +1,16 @@
+body {
+    background-color: black;
+    /*text-align: center;*/
+}
+
+.testing {
+    padding: 16px;
+    margin: 1em;
+
+    max-height: 260px;
+    width: 75em;
+    overflow-y: auto;
+    resize: both;
+
+    border: solid;
+}

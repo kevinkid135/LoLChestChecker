@@ -40,18 +40,6 @@ function json2arr($json) {
     return array_values(json_decode($json, true));
 }
 
-/**
- * Returns the champion portrait link given region and champKey
- *
- * @param string $champKey champion Key
- * @param string $version current version
- *
- * @return string Champion portrait's link
- */
-function getChampPortrait($champKey, $version) {
-    return "http://ddragon.leagueoflegends.com/cdn/" . $version . "/img/champion/" . $champKey . ".png";
-}
-
 /*****************************
  * Riot API functions (static)
  *****************************/
@@ -70,6 +58,18 @@ function getCurrentVersion($region) {
     $result = useCURL($API_URL, $URL2);
     $result = json2arr($result);
     return $result[0];
+}
+
+/**
+ * Returns the champion portrait link given region and champKey
+ *
+ * @param string $champKey champion Key
+ * @param string $version current version
+ *
+ * @return string Champion portrait's link
+ */
+function getChampPortrait($champKey, $version) {
+    return "http://ddragon.leagueoflegends.com/cdn/" . $version . "/img/champion/" . $champKey . ".png";
 }
 
 /**
@@ -242,4 +242,50 @@ function getSumm_ARRAY($region, $summName) {
     return json2arr($result)[0];
 }
 
+/**
+ * Returns an array of the recent games the player has played.
+ *
+ * @param string $region
+ * @param int $summID Summoner ID
+ *
+ * @return array list of recent matches
+ */
+function getRecentGames($region, $summID) {
+    global $API_KEY;
+    global $API_URL;
+    $URL2 = '/api/lol/' . $region . '/v1.3/game/by-summoner/' . $summID . '/recent?' . $API_KEY;
+    $result = useCURL($API_URL, $URL2);
+    return json2arr($result)[1];
+}
+
+/**
+ * Returns the time and date the user's first win of the day will be available
+ *
+ * @param string $region
+ * @param string $summID summoner ID
+ *
+ * @return int time in seconds until first win of the day is available. <br>
+ * 0 = available now <br>
+ */
+function fwotdTime($region, $summID) {
+    $recentGames = getRecentGames($region, $summID);
+    foreach ($recentGames as $game) {
+        if ($game['gameType'] == 'MATCHED_GAME') {
+            $currentTime = time();
+            $gameTimeInSec = floor($game['createDate'] / 1000);
+            if ($currentTime - $gameTimeInSec < 79200) {
+                if ($game['ipEarned'] > 150) {
+                    return $gameTimeInSec + 79200;
+                } else {
+                    break;
+                }
+            } else {
+                return 0;
+            }
+        } else {
+            break; // game does not count as FWOTD
+        }
+    }
+    return 0;
+}
 

@@ -13,17 +13,19 @@ include '../php/riotapi.php';
     <input type="submit" value="Search"/>
 </form>
 
-<p>
+<div class="section">
     <?php
-    $a = 'a';
-    $b = 'b';
-    if ($a > $b) {
-        echo $a . " is greater than " . $b;
-    } elseif ($a < $b) {
-        echo $a . " is less than " . $b;
-    } else {
-        echo 'idk';
+    $summID = 23240236;
+    $recentGames = getRecentGames('NA', $summID);
+    var_dump($recentGames);
+    ?>
+</div>
+
+<div class="section">
+    <?php
+    function timeUntilFwotd($region, $summID) {
+        return gmdate('H:i:s', fwotdTime($region, $summID) - time());
     }
     ?>
-</p>
+</div>
 </body>

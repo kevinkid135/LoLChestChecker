@@ -4,12 +4,6 @@ img {
     width: 100px;
 }
 
-body {
-    margin: 10%;
-    text-align: center;
-    background-color: white;
-}
-
 .granted {
     box-shadow: 0 0 20px #00a9d3;
 }
