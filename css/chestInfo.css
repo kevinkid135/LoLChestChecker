@@ -1,14 +1,103 @@
-img {
-    margin: 10px;
-    height: 100px;
-    width: 100px;
+header {
+    width: 75em;
+    background-color: #3399ff;
+    padding: 2em;
+    border-radius: 0 0 15px 15px;
+    text-align: inherit;
+}
+
+#summInfo {
+    float: left;
+}
+
+#profileIcon {
+    display: inline-block;
+}
+
+#profileInfo {
+    margin-left: -70px;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: left;
 }
 
 .granted {
-    box-shadow: 0 0 20px #00a9d3;
+    box-shadow: 0 0 30px #00a9d3;
 }
 
 .notGranted {
     filter: grayscale(100%);
     box-shadow: 0 0 5px #fff;
+}
+
+.portrait-list {
+    margin-top: 2em;
+    text-align: center;
+}
+
+.portrait {
+    height: 100px;
+    width: 100px;
+}
+
+.hoverWrap {
+    margin: 0.5em;
+    display: inline-block;
+    position: relative;
+    height: 100px;
+}
+
+.championPoints {
+    /*Center text*/
+    position: absolute;
+    height: 1.2em;
+    width: 100%;
+    left: 0;
+    top: 50%;
+    margin-top: -0.5em;
+    text-align: center;
+
+    /*Decoration*/
+    background-color: rgba(0, 0, 0, 0.5);
+    font-size: large;
+
+    /*Text non-highlightable
+    * Prevents touch screen from accidently highlighting text
+    */
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+    -khtml-user-select: none; /* Konqueror */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+
+    /*Opacity animation*/
+    opacity: 0;
+    -webkit-transition: opacity 500ms;
+    -moz-transition: opacity 500ms;
+    -o-transition: opacity 500ms;
+    transition: opacity 500ms;
+}
+
+.hoverWrap:hover .championPoints {
+    opacity: 1;
+}
+
+@media only screen and (max-width: 75em) {
+    header {
+        width: 100%;
+    }
+
+}
+
+@media only screen and (max-width: 770px) {
+    #profileInfo {
+        margin-left: 1em;
+    }
+}
+
+/**
+bootstrap modification
+ */
+.dl-horizontal {
+    margin-bottom: 0;
 }

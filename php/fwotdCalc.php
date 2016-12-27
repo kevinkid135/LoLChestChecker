@@ -15,7 +15,7 @@ include 'riotapi.php';
 function timeUntilFwotd($region, $summID) {
     $t = fwotdTime($region, $summID) - time();
     if ($t > 0) {
-        return gmdate('H\h i\m', $t);
+        return gmdate('G \H:i \M', $t);
     } else {
         return '0';
     }
@@ -25,7 +25,7 @@ function timeUntilFwotd($region, $summID) {
 <h1>First Win of the Day Calculator</h1>
 <h2>Your FWOTD is in...</h2>
 <section id="fwotdTime">
-    <?php echo timeUntilFwotd('NA', 23240236) ?>
+    <?php echo timeUntilFwotd('NA', 54392217) ?>
 </section>
 
 <!-- TODO Create countdown timer -->

@@ -18,7 +18,10 @@
 <body>
 <div class="testing">
     <a href="testFiles/singleTest.php">Single test</a>
+    <br>
     <a href="testFiles/functionTests.php">Function Tests</a>
+    <br>
+    <a href="php/fwotdCalc.php">FWOTD Calc</a>
 </div>
 <header>
     <h1>League of Legends Chest Checker</h1>

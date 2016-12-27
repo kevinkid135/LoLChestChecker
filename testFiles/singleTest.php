@@ -23,9 +23,7 @@ include '../php/riotapi.php';
 
 <div class="section">
     <?php
-    function timeUntilFwotd($region, $summID) {
-        return gmdate('H:i:s', fwotdTime($region, $summID) - time());
-    }
+    var_dump(getChampMasteryList_ARRAY('NA', 70120599));
     ?>
 </div>
 </body>

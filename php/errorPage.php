@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<h1>Error</h1>
+<h1>Error 404: Page Not Found</h1>
 <p>It seems one of your inputs are incorrect. Check that you've spelt your summoner name correctly, and that you've
     selected the right region.</p>
 </body>

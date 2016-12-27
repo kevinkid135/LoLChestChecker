@@ -63,13 +63,25 @@ function getCurrentVersion($region) {
 /**
  * Returns the champion portrait link given region and champKey
  *
- * @param string $champKey champion Key
  * @param string $version current version
+ * @param string $champKey champion Key
  *
  * @return string Champion portrait's link
  */
-function getChampPortrait($champKey, $version) {
+function getChampPortrait($version, $champKey) {
     return "http://ddragon.leagueoflegends.com/cdn/" . $version . "/img/champion/" . $champKey . ".png";
+}
+
+/**
+ * Returns the summoner icon link given region and iconID
+ *
+ * @param string $version current version
+ * @param string $iconID profile icon ID
+ *
+ * @return string profile icon id link
+ */
+function getSummonerIcon($version, $iconID) {
+    return "http://ddragon.leagueoflegends.com/cdn/" . $version . "/img/profileicon/" . $iconID . ".png";
 }
 
 /**
@@ -266,26 +278,28 @@ function getRecentGames($region, $summID) {
  *
  * @return int time in seconds until first win of the day is available. <br>
  * 0 = available now <br>
+ * -1 = no game found
  */
 function fwotdTime($region, $summID) {
     $recentGames = getRecentGames($region, $summID);
     foreach ($recentGames as $game) {
-        if ($game['gameType'] == 'MATCHED_GAME') {
+        if ($game['gameType'] == 'MATCHED_GAME' && $game['stats']['win'] == true) {
             $currentTime = time();
             $gameTimeInSec = floor($game['createDate'] / 1000);
             if ($currentTime - $gameTimeInSec < 79200) {
                 if ($game['ipEarned'] > 150) {
                     return $gameTimeInSec + 79200;
                 } else {
-                    break;
+                    // go to next game
                 }
             } else {
                 return 0;
             }
         } else {
-            break; // game does not count as FWOTD
+            // game does not count as FWOTD
+            // go to next game
         }
     }
-    return 0;
+    return -1;
 }
 
