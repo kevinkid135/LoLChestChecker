@@ -1,6 +1,7 @@
 header {
     width: 75em;
-    background-color: #3399ff;
+    /*background-color: #3399ff;*/
+    background-color: dodgerblue;
     padding: 2em;
     border-radius: 0 0 15px 15px;
     text-align: inherit;
@@ -15,14 +16,42 @@ header {
 }
 
 #profileInfo {
-    margin-left: -70px;
+    margin-left: -40px;
     display: inline-block;
     vertical-align: middle;
     text-align: left;
 }
 
+#ign {
+    margin-top: 5px;
+    font-size: 1.1em;
+}
+
+#fwotd {
+    display: inline;
+}
+
+#renew-btn {
+    color: black;
+    margin-top: 3px;
+    position: relative;
+    float: left;
+    margin-left: 110px;
+}
+
+#summName, #region, #summSearch {
+    padding-top: 0.3em;
+    height: 2em;
+}
+
+#summSearch {
+    padding-top: .2em;
+}
+
 .granted {
-    box-shadow: 0 0 30px #00a9d3;
+    /*box-shadow: 0 0 30px #00a9d3;*/
+    /*color: deepskyblue;*/
+    box-shadow: 0 0 30px deepskyblue;
 }
 
 .notGranted {
@@ -45,24 +74,34 @@ header {
     display: inline-block;
     position: relative;
     height: 100px;
+    text-align: center;
+}
+
+.champName {
+    bottom: 6px;
+    opacity: 0.5;
+    color: paleturquoise;
+    text-shadow: 2px 2px black;
 }
 
 .championPoints {
+    top: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    font-size: medium;
+    opacity: 0;
+}
+
+.championPoints, .champName {
     /*Center text*/
     position: absolute;
     height: 1.2em;
     width: 100%;
     left: 0;
-    top: 50%;
     margin-top: -0.5em;
     text-align: center;
 
-    /*Decoration*/
-    background-color: rgba(0, 0, 0, 0.5);
-    font-size: large;
-
     /*Text non-highlightable
-    * Prevents touch screen from accidently highlighting text
+    * Prevents touch screen from accidentally highlighting text
     */
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Chrome/Safari/Opera */
@@ -71,14 +110,13 @@ header {
     -ms-user-select: none; /* Internet Explorer/Edge */
 
     /*Opacity animation*/
-    opacity: 0;
     -webkit-transition: opacity 500ms;
     -moz-transition: opacity 500ms;
     -o-transition: opacity 500ms;
     transition: opacity 500ms;
 }
 
-.hoverWrap:hover .championPoints {
+.hoverWrap:hover .championPoints, .hoverWrap:hover .champName {
     opacity: 1;
 }
 
@@ -100,4 +138,8 @@ bootstrap modification
  */
 .dl-horizontal {
     margin-bottom: 0;
+}
+
+dt {
+    color: gold;
 }

@@ -1,5 +1,5 @@
 body {
-    background-color: black;
+    background-color: #181818;
     text-align: center;
     color: white;
 }
@@ -14,4 +14,11 @@ body {
     resize: both;
 
     border: solid;
+}
+
+footer {
+    width: 100%;
+    text-align: center;
+    position: relative;
+    bottom: 0;
 }

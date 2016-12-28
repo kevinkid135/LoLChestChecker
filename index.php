@@ -16,46 +16,42 @@
 </head>
 
 <body>
-<div class="testing">
-    <a href="testFiles/singleTest.php">Single test</a>
-    <br>
-    <a href="testFiles/functionTests.php">Function Tests</a>
-</div>
+
 <header>
     <h1>League of Legends Chest Checker</h1>
 </header>
 
 <section>
+    <img src="img/Hextech_Crafting.jpg" id="chest-img">
     <div id="input-field">
-        <div id="summInput" class="col-xs-12">
-            <form class="form-inline" action="php/chestInfo.php" method="GET">
-                <div class="form-group">
-                    <label for="summName" class="sr-only">Summoner Name</label>
-                    <input type="text" name="summName" class="form-control" placeholder="Summoner Name"
-                           autofocus="autofocus" id="summName" required>
-                </div>
+        <form class="form-inline" action="php/chestInfo.php" method="GET">
 
-                <div class="form-group">
-                    <label for="region" class="sr-only">Region</label>
-                    <select name="region" class="btn btn-default" id="region">
-                        <option value="NA">NA</option>
-                        <!-- Find out how to: Sort alphabetically, but will cache old selection -->
-                        <option value="BR">BR</option>
-                        <option value="EUNE">EUNE</option>
-                        <option value="EUW">EUW</option>
-                        <option value="JP">JP</option>
-                        <option value="KR">KR</option>
-                        <option value="LAN">LAN</option>
-                        <option value="LAS">LAS</option>
-                        <option value="OCE">OCE</option>
-                        <option value="RU">RU</option>
-                        <option value="TR">TR</option>
-                    </select>
-                </div>
-        </div>
-        <div class="col-xs-12">
+            <div class="form-group">
+                <label for="summName" class="sr-only">Summoner Name</label>
+                <input type="text" name="summName" class="form-control" placeholder="Summoner Name"
+                       autofocus="autofocus" id="summName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="region" class="sr-only">Region</label>
+                <select name="region" class="btn btn-default" id="region">
+                    <option value="NA">NA</option>
+                    <!-- Find out how to: Sort alphabetically, but will cache old selection -->
+                    <option value="BR">BR</option>
+                    <option value="EUNE">EUNE</option>
+                    <option value="EUW">EUW</option>
+                    <option value="JP">JP</option>
+                    <option value="KR">KR</option>
+                    <option value="LAN">LAN</option>
+                    <option value="LAS">LAS</option>
+                    <option value="OCE">OCE</option>
+                    <option value="RU">RU</option>
+                    <option value="TR">TR</option>
+                </select>
+            </div>
+
             <input type="submit" value="Search" class="btn btn-default"/>
-        </div>
+
         </form>
     </div>
     <div id="about">
@@ -63,5 +59,12 @@
     </div>
 
 </section>
+<!--<div class="testing" style="position: fixed; bottom: 0;">-->
+<footer style="position: absolute">
+    <a href="testFiles/singleTest.php">Single test</a>
+    <br>
+    <a href="testFiles/functionTests.php">Function Tests</a>
+</footer>
+<!--</div>-->
 </body>
 </html>

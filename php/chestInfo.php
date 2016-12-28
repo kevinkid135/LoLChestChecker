@@ -6,11 +6,13 @@
 
     <title>Check Mastery Chest</title>
 
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/chestInfo.css">
 
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 
+    <script type="text/javascript" src="../js/chestInfo.js"></script>
     <script type="text/javascript" src="../js/cssrefresh.js"></script>
 </head>
 
@@ -44,12 +46,44 @@
              alt="Profile Icon <?php echo $summInfo['profileIconId'] ?>" id="profileIcon" class="img-rounded portrait">
         <div id="profileInfo">
             <dl class="dl-horizontal">
-                <dt>IGN</dt>
-                <dd><?php echo $summName ?></dd>
+                <dt id="ign">Summ Name</dt>
+                <dd>
+                    <div id="input-field">
+                        <form class="form-inline" action="chestInfo.php" method="GET">
+
+                            <div class="form-group">
+                                <label for="summName" class="sr-only">Summoner Name</label>
+                                <input type="text" name="summName" class="form-control" value="<?php echo $summName ?>"
+                                       placeholder="Summoner Name"
+                                       id="summName" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="region" class="sr-only">Region</label>
+                                <select name="region" class="btn btn-default" id="region">
+                                    <option value="NA">NA</option>
+                                    <!-- Find out how to: Sort alphabetically, but will cache old selection -->
+                                    <option value="BR">BR</option>
+                                    <option value="EUNE">EUNE</option>
+                                    <option value="EUW">EUW</option>
+                                    <option value="JP">JP</option>
+                                    <option value="KR">KR</option>
+                                    <option value="LAN">LAN</option>
+                                    <option value="LAS">LAS</option>
+                                    <option value="OCE">OCE</option>
+                                    <option value="RU">RU</option>
+                                    <option value="TR">TR</option>
+                                </select>
+                            </div>
+                            <input type="submit" value="Search" class="btn btn-default" id="summSearch"/>
+                        </form>
+                    </div>
+                </dd>
                 <dt>Summ ID</dt>
                 <dd><?php echo $summID ?></dd>
                 <dt>FWOTD</dt>
                 <dd>
+                    <span id="fwotd">
                     <?php
                     $t = fwotdTime($region, $summID) - time();
                     if ($t <= 0) {
@@ -65,73 +99,86 @@
                         }
                     }
                     ?>
+                    </span>
                 </dd>
+                <dt></dt>
             </dl>
+            <button class="btn btn-info" id="renew-btn"
+                    onclick="renew(<?php echo "'" . $region . "'" ?>, <?php echo $summID ?>)">
+                Recheck FWOTD
+            </button>
         </div>
     </div>
 
-    <!-- TODO Search area -->
-    <div>
+    <!-- TODO sort by different attributes: name, champPoints; ascending, descending; lastPlayed -->
+    <!-- TODO show only: chestGranted, chestNotGranted, championWithZeroPoints, champWithMoreThanZeroPts -->
+    <!-- TODO search by champion name -->
 
-    </div>
 </header>
-<div class="container portrait-list">
-    <!-- Show all champions -->
-    <?php
-    $masteryList = getChampMasteryList_ARRAY($region, $summID);
+<section>
+    <div class="container portrait-list">
+        <!-- Show all champions -->
+        <?php
+        $masteryList = getChampMasteryList_ARRAY($region, $summID);
 
 
-    $champListArray = getChampListById($region);
-    /*
-     * masterArray will have:
-     * championId => array(id, key, name, chestGranted, championPoints)
-     */
-    $masterArray = $champListArray;
-    foreach ($masterArray as $id => $arr) {
-        unset($masterArray[$id]['title']);
-        $masterArray[$id]['chestGranted'] = false;
-        $masterArray[$id]['championPoints'] = 0;
-    }
-
-    // check if there were any errors getting list
-    if (!isset($masteryList[0]['status_code'])) {
-        foreach ($masteryList as $champArr) {
-            $masterArray[$champArr['championId']]['chestGranted'] = $champArr['chestGranted'];
-            $masterArray[$champArr['championId']]['championPoints'] = $champArr['championPoints'];
+        $champListArray = getChampListById($region);
+        /*
+         * masterArray will have:
+         * championId => array(id, key, name, chestGranted, championPoints)
+         */
+        $masterArray = $champListArray;
+        foreach ($masterArray as $id => $arr) {
+            unset($masterArray[$id]['title']);
+            $masterArray[$id]['chestGranted'] = false;
+            $masterArray[$id]['championPoints'] = 0;
         }
-    }
 
-    //sort based on chestGranted
-    uasort($masterArray, function ($a, $b) {
-        // sort based on chest Granted
-        if ($a['chestGranted'] && !$b['chestGranted']) {
-            return -1;
-        } elseif (!$a['chestGranted'] && $b['chestGranted']) {
-            return 1;
-        } else {
-            // sort based on name
-            if ($a['name'] < $b['name']) {
-                return -1;
-            } else {
-                return 1;
+        // check if there were any errors getting list
+        if (!isset($masteryList[0]['status_code'])) {
+            foreach ($masteryList as $champArr) {
+                $masterArray[$champArr['championId']]['chestGranted'] = $champArr['chestGranted'];
+                $masterArray[$champArr['championId']]['championPoints'] = $champArr['championPoints'];
             }
         }
-    });
 
-    foreach ($masterArray as $champArr) {
-        echo '<div class="hoverWrap">';
+        //sort based on chestGranted
+        uasort($masterArray, function ($a, $b) {
+            // sort based on chest Granted
+            if ($a['chestGranted'] && !$b['chestGranted']) {
+                return -1;
+            } elseif (!$a['chestGranted'] && $b['chestGranted']) {
+                return 1;
+            } else {
+                // sort based on name
+                if ($a['name'] < $b['name']) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            }
+        });
 
-        echo '<img src="' . getChampPortrait($version, $champArr['key']) . '" alt="' . $champArr['name'] . ' Portrait" class="portrait ';
-        if ($champArr['chestGranted']) {
-            echo 'granted">';
-        } else {
-            echo 'notGranted">';
+        // add hover text
+        foreach ($masterArray as $champArr) {
+            echo '<div class="hoverWrap">';
+
+            echo '<img src="' . getChampPortrait($version, $champArr['key']) . '" alt="' . $champArr['name'] . ' Portrait" class="portrait ';
+            if ($champArr['chestGranted']) {
+                echo 'granted">';
+            } else {
+                echo 'notGranted">';
+            }
+            echo '<span class="championPoints">' . $champArr['championPoints'] . '</span>';
+            echo '<span class="champName">' . $champArr['name'] . '</span>';
+            echo "</div>\r\n";
         }
-        echo '<span class="championPoints">' . $champArr['championPoints'] . '</span>';
-
-        echo "</div>\r\n";
-    }
-    ?>
-</div>
+        ?>
+    </div>
+</section>
+<footer>
+    <h2>Title</h2>
+    <p>Placeholder Text</p>
+</footer>
 </body>
 </html>
