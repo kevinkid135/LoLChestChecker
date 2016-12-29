@@ -1,10 +1,27 @@
 header {
     width: 75em;
-    /*background-color: #3399ff;*/
-    background-color: dodgerblue;
     padding: 2em;
     border-radius: 0 0 15px 15px;
     text-align: inherit;
+    background-color: #3399ff;
+    /*background-color: #020a16;*/
+
+    box-shadow: 0 0 10px gold;
+
+    border-width: thin;
+
+    border-left-width: medium;
+    border-left-style: solid;
+    border-left-color: grey;
+
+    border-right-width: medium;
+    border-right-style: solid;
+    border-right-color: grey;
+
+    border-bottom-width: medium;
+    border-bottom-style: solid;
+    border-bottom-color: grey;
+
 }
 
 #summInfo {
@@ -48,6 +65,10 @@ header {
     padding-top: .2em;
 }
 
+#champSearch {
+    color: black;
+}
+
 .granted {
     /*box-shadow: 0 0 30px #00a9d3;*/
     /*color: deepskyblue;*/
@@ -59,7 +80,7 @@ header {
     box-shadow: 0 0 5px #fff;
 }
 
-.portrait-list {
+#portrait-list {
     margin-top: 2em;
     text-align: center;
 }
@@ -79,8 +100,9 @@ header {
 
 .champName {
     bottom: 6px;
-    opacity: 0.5;
-    color: paleturquoise;
+    opacity: 0;
+    /*color: paleturquoise;*/
+    color: gold;
     text-shadow: 2px 2px black;
 }
 
@@ -89,6 +111,15 @@ header {
     background-color: rgba(0, 0, 0, 0.5);
     font-size: medium;
     opacity: 0;
+
+    /*Text non-highlightable
+    * Prevents touch screen from accidentally highlighting text
+    */
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+    -khtml-user-select: none; /* Konqueror */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
 }
 
 .championPoints, .champName {
@@ -99,15 +130,6 @@ header {
     left: 0;
     margin-top: -0.5em;
     text-align: center;
-
-    /*Text non-highlightable
-    * Prevents touch screen from accidentally highlighting text
-    */
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Chrome/Safari/Opera */
-    -khtml-user-select: none; /* Konqueror */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
 
     /*Opacity animation*/
     -webkit-transition: opacity 500ms;

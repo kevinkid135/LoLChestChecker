@@ -12,8 +12,7 @@
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 
-    <script type="text/javascript" src="../js/chestInfo.js"></script>
-    <script type="text/javascript" src="../js/cssrefresh.js"></script>
+
 </head>
 
 <body>
@@ -110,40 +109,58 @@
         </div>
     </div>
 
-    <!-- TODO sort by different attributes: name, champPoints; ascending, descending; lastPlayed -->
+    <!-- TODO sort by different attributes using radio buttons: name, champPoints; ascending, descending; lastPlayed -->
     <!-- TODO show only: chestGranted, chestNotGranted, championWithZeroPoints, champWithMoreThanZeroPts -->
-    <!-- TODO search by champion name -->
+    <!-- search by champion name -->
+    <input id="champSearch" type="text" oninput="reloadPortraits()" placeholder="Search by champion name">
 
 </header>
 <section>
-    <div class="container portrait-list">
+    <div class="container" id="portrait-list">
         <!-- Show all champions -->
         <?php
         $masteryList = getChampMasteryList_ARRAY($region, $summID);
-
-
         $champListArray = getChampListById($region);
+
         /*
          * masterArray will have:
          * championId => array(id, key, name, chestGranted, championPoints)
          */
-        $masterArray = $champListArray;
-        foreach ($masterArray as $id => $arr) {
-            unset($masterArray[$id]['title']);
-            $masterArray[$id]['chestGranted'] = false;
-            $masterArray[$id]['championPoints'] = 0;
+        //insert id, key, name
+        $masterArrayById = $champListArray;
+
+        // chestGranted and championpoints keys inserted
+        foreach ($masterArrayById as $id => $arr) {
+            unset($masterArrayById[$id]['title']);
+            $masterArrayById[$id]['chestGranted'] = false;
+            $masterArrayById[$id]['championPoints'] = 0;
         }
+
 
         // check if there were any errors getting list
         if (!isset($masteryList[0]['status_code'])) {
             foreach ($masteryList as $champArr) {
-                $masterArray[$champArr['championId']]['chestGranted'] = $champArr['chestGranted'];
-                $masterArray[$champArr['championId']]['championPoints'] = $champArr['championPoints'];
+                // insert appropriate chestGranted and champ points into array
+                $masterArrayById[$champArr['championId']]['chestGranted'] = $champArr['chestGranted'];
+                $masterArrayById[$champArr['championId']]['championPoints'] = $champArr['championPoints'];
             }
         }
 
+        ?>
+        <script>
+            <?php
+            $masterArrayByKey = array();
+            foreach ($masterArrayById as $arr) {
+                $masterArrayByKey[$arr['key']] = $arr;
+            }
+            ?>
+            //export array to JSON
+            var masterArray = <?php echo json_encode($masterArrayByKey, JSON_FORCE_OBJECT)?>;
+        </script>
+
+        <?php
         //sort based on chestGranted
-        uasort($masterArray, function ($a, $b) {
+        uasort($masterArrayById, function ($a, $b) {
             // sort based on chest Granted
             if ($a['chestGranted'] && !$b['chestGranted']) {
                 return -1;
@@ -160,8 +177,8 @@
         });
 
         // add hover text
-        foreach ($masterArray as $champArr) {
-            echo '<div class="hoverWrap">';
+        foreach ($masterArrayById as $champArr) {
+            echo '<div class="hoverWrap" id="' . $champArr['key'] . '">';
 
             echo '<img src="' . getChampPortrait($version, $champArr['key']) . '" alt="' . $champArr['name'] . ' Portrait" class="portrait ';
             if ($champArr['chestGranted']) {
@@ -181,4 +198,6 @@
     <p>Placeholder Text</p>
 </footer>
 </body>
+<script type="text/javascript" src="../js/chestInfo.js"></script>
+<script type="text/javascript" src="../js/cssrefresh.js"></script>
 </html>
