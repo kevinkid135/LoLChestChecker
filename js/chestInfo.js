@@ -1,7 +1,9 @@
 /**
- * Created by Kevin on 12/26/2016.
+ * Hover effect
+ * @param r
+ * @param id
+ * @returns {boolean}
  */
-
 function renew(r, id) {
     $("#fwotd").fadeOut("slow",
         function () {
@@ -14,23 +16,101 @@ function renew(r, id) {
     return false;
 }
 
-function reloadPortraits() {
+/**
+ * hides/shows champions depending on user input
+ */
+function searchPortraits() {
     // get text in search bar
     var input = document.getElementById('champSearch').value;
 
     // loop through all champions
     $('#portrait-list').find('div').each(function () {
         var champKey = $(this).attr('id');
-
         // check if champion name includes what has been searched
         if (masterArray[champKey]['name'].toUpperCase().includes(input.toUpperCase())) {
-            document.getElementById(champKey).style.display = 'inline-block';
+            this.style.display = 'inline-block';
             // $("#" + champKey).show();
         } else {
-            document.getElementById(champKey).style.display = 'none';
+            this.style.display = 'none';
             // $("#" + champKey).hide();
         }
     });
 }
 
-//TODO allow different sorts
+function toggleChestGranted(cb) {
+    if (cb) {
+        // show all champions where chestGranted = true
+        $('#portrait-list').find('div').each(function () {
+            var champKey = $(this).attr('id');
+            if (masterArray[champKey]['chestGranted']) {
+                document.getElementById(champKey).style.display = 'inline-block';
+            }
+        });
+    } else {
+        // hide all champions where chestGranted = true
+        $('#portrait-list').find('div').each(function () {
+            var champKey = $(this).attr('id');
+            if (masterArray[champKey]['chestGranted']) {
+                document.getElementById(champKey).style.display = 'none';
+            }
+        });
+    }
+}
+
+function toggleChestNotGranted(cb) {
+    if (cb) {
+        // show all champions where chestGranted = false
+        $('#portrait-list').find('div').each(function () {
+            var champKey = $(this).attr('id');
+            if (!masterArray[champKey]['chestGranted']) {
+                document.getElementById(champKey).style.display = 'inline-block';
+            }
+        });
+    } else {
+        // hide all champions where chestGranted = false
+        $('#portrait-list').find('div').each(function () {
+            var champKey = $(this).attr('id');
+            if (!masterArray[champKey]['chestGranted']) {
+                document.getElementById(champKey).style.display = 'none';
+            }
+        });
+    }
+}
+function toggleZeroMasteryPoints(cb) {
+    if (cb) {
+        // show all champions where mastery points = 0
+        $('#portrait-list').find('div').each(function () {
+            var champKey = $(this).attr('id');
+            if (masterArray[champKey]['championPoints'] == 0) {
+                document.getElementById(champKey).style.display = 'inline-block';
+            }
+        });
+    } else {
+        // hide all champions where mastery points = 0
+        $('#portrait-list').find('div').each(function () {
+            var champKey = $(this).attr('id');
+            if (masterArray[champKey]['championPoints'] == 0) {
+                document.getElementById(champKey).style.display = 'none';
+            }
+        });
+    }
+}
+function togglePositiveMasteryPoints(cb) {
+    if (cb) {
+        // show all champions where mastery points = 0
+        $('#portrait-list').find('div').each(function () {
+            var champKey = $(this).attr('id');
+            if (masterArray[champKey]['championPoints'] > 0) {
+                document.getElementById(champKey).style.display = 'inline-block';
+            }
+        });
+    } else {
+        // hide all champions where mastery points = 0
+        $('#portrait-list').find('div').each(function () {
+            var champKey = $(this).attr('id');
+            if (masterArray[champKey]['championPoints'] > 0) {
+                document.getElementById(champKey).style.display = 'none';
+            }
+        });
+    }
+}

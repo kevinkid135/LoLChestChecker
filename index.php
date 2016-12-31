@@ -2,23 +2,24 @@
 
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-
     <title>LoL Chest Checker</title>
+
+    <meta charset="utf-8">
+    <meta name="description"
+          content="League of Legends mastery chest checker. Check which champions you've unlocked a chest for, and also know when your first win of the day is up.">
+    <meta name="keywords" content="lol, League of Legends, chest, mastery, first win of the day, fwotd, lolcc">
+    <meta name="author" content="kevinkid135">
 
     <!-- CSS Files-->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/index.css">
-
-    <!-- JS Files-->
-    <script type="text/javascript" src="js/cssrefresh.js"></script>
 </head>
 
 <body>
 
 <header>
-    <h1>League of Legends Chest Checker</h1>
+    <h1>LoLcc - League of Legends Chest Checker</h1>
 </header>
 
 <section>
@@ -55,16 +56,37 @@
         </form>
     </div>
     <div id="about">
-        [This site] allows you to check whether or not you've unlocked your chest for all champions.
+        LoLcc allows you to check whether or not you've unlocked your chest for all champions. We also provide you with
+        the ability to calculate when your first win of the day is up, accurate as long as no IP boosters are used.
     </div>
 
 </section>
-<!--<div class="testing" style="position: fixed; bottom: 0;">-->
-<footer style="position: absolute">
+<footer>
     <a href="testFiles/singleTest.php">Single test</a>
     <br>
     <a href="testFiles/functionTests.php">Function Tests</a>
+    <p>LoLcc isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot
+        Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games
+        are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.</p>
 </footer>
-<!--</div>-->
+<!-- Start of StatCounter Code for Default Guide -->
+<script type="text/javascript">
+    var sc_project = 11205072;
+    var sc_invisible = 1;
+    var sc_security = "852b1dc0";
+    var scJsHost = (("https:" == document.location.protocol) ?
+        "https://secure." : "http://www.");
+    document.write("<sc" + "ript type='text/javascript' src='" +
+        scJsHost +
+        "statcounter.com/counter/counter.js'></" + "script>");
+</script>
+<noscript>
+    <div class="statcounter"><a title="free hit
+counter" href="http://statcounter.com/" target="_blank"><img
+                    class="statcounter"
+                    src="//c.statcounter.com/11205072/0/852b1dc0/1/" alt="free
+hit counter"></a></div>
+</noscript>
+<!-- End of StatCounter Code for Default Guide -->
 </body>
 </html>

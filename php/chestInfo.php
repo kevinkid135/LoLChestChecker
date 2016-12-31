@@ -16,72 +16,77 @@
 </head>
 
 <body>
-<header class="container">
-    <div id="summInfo">
-        <?php
-        include 'riotapi.php';
-        global $regionList;
-        $region = $_GET["region"];
-        $summName = $_GET["summName"];
-        $version = getCurrentVersion($region);
+<header>
+    <div id="headerBox">
 
-        // client side check for error in summoner name and region
-        if (preg_match("/^[0-9\p{L} .]+$/u", $summName) && !in_array($region, $regionList)) {
-            header("Location: errorPage.php");
-            exit();
-        }
+        <div id="summInfo">
+            <?php
+            include 'riotapi.php';
+            global $regionList;
+            $region = $_GET["region"];
+            $summName = $_GET["summName"];
+            $version = getCurrentVersion($region);
 
-        $summInfo = getSumm_ARRAY($region, $summName); // get summoner ID based off summoner name
-        // server sided check for error in summName
-        if (count($summInfo) == 2) {
-            header("Location: errorPage.php");
-            exit();
-        }
-        $summID = $summInfo['id'];
-        $summName = $summInfo['name'];
-        ?>
+            // client side check for error in summoner name and region
+            if (preg_match("/^[0-9\p{L} .]+$/u", $summName) && !in_array($region, $regionList)) {
+                header("Location: errorPage.php");
+                exit();
+            }
 
-        <img src="<?php echo getSummonerIcon($version, $summInfo['profileIconId']) ?>"
-             alt="Profile Icon <?php echo $summInfo['profileIconId'] ?>" id="profileIcon" class="img-rounded portrait">
-        <div id="profileInfo">
-            <dl class="dl-horizontal">
-                <dt id="ign">Summ Name</dt>
-                <dd>
-                    <div id="input-field">
-                        <form class="form-inline" action="chestInfo.php" method="GET">
+            $summInfo = getSumm_ARRAY($region, $summName); // get summoner ID based off summoner name
+            // server sided check for error in summName
+            if (count($summInfo) == 2) {
+                header("Location: errorPage.php");
+                exit();
+            }
+            $summID = $summInfo['id'];
+            $summName = $summInfo['name'];
+            ?>
 
-                            <div class="form-group">
-                                <label for="summName" class="sr-only">Summoner Name</label>
-                                <input type="text" name="summName" class="form-control" value="<?php echo $summName ?>"
-                                       placeholder="Summoner Name"
-                                       id="summName" required>
-                            </div>
+            <img src="<?php echo getSummonerIcon($version, $summInfo['profileIconId']) ?>"
+                 alt="Profile Icon <?php echo $summInfo['profileIconId'] ?>" id="profileIcon"
+                 class="img-rounded portrait">
 
-                            <div class="form-group">
-                                <label for="region" class="sr-only">Region</label>
-                                <select name="region" class="btn btn-default" id="region">
-                                    <option value="NA">NA</option>
-                                    <!-- Find out how to: Sort alphabetically, but will cache old selection -->
-                                    <option value="BR">BR</option>
-                                    <option value="EUNE">EUNE</option>
-                                    <option value="EUW">EUW</option>
-                                    <option value="JP">JP</option>
-                                    <option value="KR">KR</option>
-                                    <option value="LAN">LAN</option>
-                                    <option value="LAS">LAS</option>
-                                    <option value="OCE">OCE</option>
-                                    <option value="RU">RU</option>
-                                    <option value="TR">TR</option>
-                                </select>
-                            </div>
-                            <input type="submit" value="Search" class="btn btn-default" id="summSearch"/>
-                        </form>
-                    </div>
-                </dd>
-                <dt>Summ ID</dt>
-                <dd><?php echo $summID ?></dd>
-                <dt>FWOTD</dt>
-                <dd>
+            <div id="profileInfo">
+                <dl class="dl-horizontal">
+                    <dt id="ign">Summ Name</dt>
+                    <dd>
+                        <div id="input-field">
+                            <form class="form-inline" action="chestInfo.php" method="GET">
+
+                                <div class="form-group">
+                                    <label for="summName" class="sr-only">Summoner Name</label>
+                                    <input type="text" name="summName" class="form-control"
+                                           value="<?php echo $summName ?>"
+                                           placeholder="Summoner Name"
+                                           id="summName" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="region" class="sr-only">Region</label>
+                                    <select name="region" class="btn btn-default" id="region">
+                                        <option value="NA">NA</option>
+                                        <!-- Find out how to: Sort alphabetically, but will cache old selection -->
+                                        <option value="BR">BR</option>
+                                        <option value="EUNE">EUNE</option>
+                                        <option value="EUW">EUW</option>
+                                        <option value="JP">JP</option>
+                                        <option value="KR">KR</option>
+                                        <option value="LAN">LAN</option>
+                                        <option value="LAS">LAS</option>
+                                        <option value="OCE">OCE</option>
+                                        <option value="RU">RU</option>
+                                        <option value="TR">TR</option>
+                                    </select>
+                                </div>
+                                <input type="submit" value="Search" class="btn btn-default" id="summSearch"/>
+                            </form>
+                        </div>
+                    </dd>
+                    <dt>Summ ID</dt>
+                    <dd><?php echo $summID ?></dd>
+                    <dt>FWOTD</dt>
+                    <dd>
                     <span id="fwotd">
                     <?php
                     $t = fwotdTime($region, $summID) - time();
@@ -99,20 +104,20 @@
                     }
                     ?>
                     </span>
-                </dd>
-                <dt></dt>
-            </dl>
-            <button class="btn btn-info" id="renew-btn"
-                    onclick="renew(<?php echo "'" . $region . "'" ?>, <?php echo $summID ?>)">
-                Recheck FWOTD
-            </button>
+                    </dd>
+                    <dt></dt>
+                </dl>
+                <button class="btn btn-info" id="renew-btn"
+                        onclick="renew(<?php echo "'" . $region . "'" ?>, <?php echo $summID ?>)">
+                    Recheck FWOTD
+                </button>
+            </div>
+        </div>
+        <div id="search">
+            <!-- search by champion name -->
+            <input id="champSearch" type="text" oninput="searchPortraits()" placeholder="Search champion name">
         </div>
     </div>
-
-    <!-- TODO sort by different attributes using radio buttons: name, champPoints; ascending, descending; lastPlayed -->
-    <!-- TODO show only: chestGranted, chestNotGranted, championWithZeroPoints, champWithMoreThanZeroPts -->
-    <!-- search by champion name -->
-    <input id="champSearch" type="text" oninput="reloadPortraits()" placeholder="Search by champion name">
 
 </header>
 <section>
@@ -194,10 +199,29 @@
     </div>
 </section>
 <footer>
-    <h2>Title</h2>
-    <p>Placeholder Text</p>
+    <p>LoLcc isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot
+        Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games
+        are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.</p>
 </footer>
+<!-- Start of StatCounter Code for Default Guide -->
+<script type="text/javascript">
+    var sc_project = 11205072;
+    var sc_invisible = 1;
+    var sc_security = "852b1dc0";
+    var scJsHost = (("https:" == document.location.protocol) ?
+        "https://secure." : "http://www.");
+    document.write("<sc" + "ript type='text/javascript' src='" +
+        scJsHost +
+        "statcounter.com/counter/counter.js'></" + "script>");
+</script>
+<noscript>
+    <div class="statcounter"><a title="free hit
+counter" href="http://statcounter.com/" target="_blank"><img
+                    class="statcounter"
+                    src="//c.statcounter.com/11205072/0/852b1dc0/1/" alt="free
+hit counter"></a></div>
+</noscript>
+<!-- End of StatCounter Code for Default Guide -->
 </body>
 <script type="text/javascript" src="../js/chestInfo.js"></script>
-<script type="text/javascript" src="../js/cssrefresh.js"></script>
 </html>

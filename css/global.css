@@ -1,5 +1,6 @@
 body {
-    background-color: #181818;
+    /*background-color: #181818;*/
+    background-color: black;
     text-align: center;
     color: white;
 }
@@ -17,8 +18,11 @@ body {
 }
 
 footer {
-    width: 100%;
+    border: solid white;
+    background-color: black;
     text-align: center;
     position: relative;
+    width: 80%;
+    margin-left: 10%;
     bottom: 0;
 }
