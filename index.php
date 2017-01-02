@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/index.css">
+
+    <!-- JS Files-->
+    <script type="text/javascript" src="js/cssrefresh.js"></script>
 </head>
 
 <body>
@@ -23,7 +26,9 @@
 </header>
 
 <section>
-    <img src="img/Hextech_Crafting.jpg" id="chest-img">
+    <div id="header">
+        <img src="img/Hextech_Crafting.jpg" id="chest-img">
+    </div>
     <div id="input-field">
         <form class="form-inline" action="php/chestInfo.php" method="GET">
 
@@ -62,9 +67,6 @@
 
 </section>
 <footer>
-    <a href="testFiles/singleTest.php">Single test</a>
-    <br>
-    <a href="testFiles/functionTests.php">Function Tests</a>
     <p>LoLcc isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot
         Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games
         are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.</p>

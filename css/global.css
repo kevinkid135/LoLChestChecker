@@ -18,10 +18,12 @@ body {
 }
 
 footer {
-    border: solid white;
-    background-color: black;
+    color: dimgrey;
+    border: solid dimgrey;
+
     text-align: center;
     position: relative;
+
     width: 80%;
     margin-left: 10%;
     bottom: 0;

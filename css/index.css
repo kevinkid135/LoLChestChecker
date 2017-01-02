@@ -1,17 +1,21 @@
-/* For small width */
+body {
+    background-color: white;
+}
+
 header {
+    background-color: black;
+    width: 100vw;
     color: #d3ceae;
+    padding: 1em;
 }
 
 section {
-    padding: 1em;
     margin: 0 auto;
+}
 
-    /* vertically center */
-    /*position: fixed;*/
-    /*top: 50%;*/
-    /*left: 50%;*/
-    /*transform: translate(-50%, -50%);*/
+#header {
+    background-color: black;
+    width: 100vw;
 }
 
 #chest-img {
@@ -19,14 +23,12 @@ section {
 }
 
 #input-field {
-
-    /*position: relative;*/
-    /*display: inline-block;*/
-    /*margin-bottom: 1em;*/
+    padding: 2em;
 }
 
 #about {
-    color: cornflowerblue;
+    padding: 1em;
+    color: dimgrey;
 }
 
 @media only screen and (max-width: 940px) {
