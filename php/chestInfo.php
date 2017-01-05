@@ -9,10 +9,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/chestInfo.css">
-
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-
-
 </head>
 
 <body>
@@ -21,7 +17,7 @@
 
         <div id="summInfo">
             <?php
-            include 'riotapi.php';
+            include 'riotAPI.php';
             global $regionList;
             $region = $_GET["region"];
             $summName = $_GET["summName"];
@@ -203,6 +199,8 @@
         Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games
         are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.</p>
 </footer>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="../js/chestInfo.js"></script>
 <!-- Start of StatCounter Code for Default Guide -->
 <script type="text/javascript">
     var sc_project = 11205072;
@@ -223,5 +221,4 @@ hit counter"></a></div>
 </noscript>
 <!-- End of StatCounter Code for Default Guide -->
 </body>
-<script type="text/javascript" src="../js/chestInfo.js"></script>
 </html>

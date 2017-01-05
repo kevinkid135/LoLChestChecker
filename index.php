@@ -14,9 +14,6 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/index.css">
-
-    <!-- JS Files-->
-    <script type="text/javascript" src="js/cssrefresh.js"></script>
 </head>
 
 <body>
