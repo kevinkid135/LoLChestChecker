@@ -1,3 +1,7 @@
+####Domains:
+* https://lolcc.000webhostapp.com/
+* https://www.lolcc.me
+
 # LoL-Mastery-Chest-Tracker
 This application allows the user to search up a summoner name and see all chest availability for each champion. All data will be obtained from the riot API.
 
@@ -9,6 +13,8 @@ This application allows the user to search up a summoner name and see all chest 
 	
 * FWOTD Calculator
 	* Determines whether FWOTD is up. If not, it will tell you how much time is left.
+	
+* Search by champion name
 
 ## Planned Features
 * Sort by (client side):
