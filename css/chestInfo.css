@@ -168,10 +168,18 @@ header {
 
 }
 
-@media only screen and (max-width: 770px) {
-    #profileInfo {
-        margin-left: 1em;
+@media only screen and (max-width: 851px) {
+    #summInfo {
+        text-align: center;
     }
+
+    #profileIcon, #profileInfo, #search, #summInfo {
+        margin: 1em;
+        position: relative;
+        float: none;
+        clear: both;
+    }
+
 }
 
 /**

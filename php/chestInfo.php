@@ -111,7 +111,8 @@
         </div>
         <div id="search">
             <!-- search by champion name -->
-            <input id="champSearch" type="text" oninput="searchPortraits()" placeholder="Search champion name">
+            <input id="champSearch" class="form-control" type="text" oninput="searchPortraits()"
+                   placeholder="Search champion name">
         </div>
     </div>
 
