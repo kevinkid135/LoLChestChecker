@@ -1,10 +1,10 @@
-####Domains:
+#### Domains:
 * https://lolcc.000webhostapp.com/
 * https://www.lolcc.me
 
 If you are checking this website without any League of Legends background, feel free to search for the name "Kirox3" without quotations. This is my personal game handle.
 
-# LoL-Mastery-Chest-Tracker
+# About
 This application allows the user to search up a summoner name and see all chest availability for each champion. All data will be obtained from the riot API.
 
 ## Current Features
