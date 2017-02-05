@@ -25,6 +25,7 @@ This application allows the user to search up a summoner name and see all chest 
 	* Tier 6: Purple - #ae26b4
 	* Tier 7: Emerald/Teal - #2da7a8
 	* [Master Emote Reference Images](http://1.bp.blogspot.com/-4D5ZQjXvLzo/VQDK1opIjJI/AAAAAAAAlqQ/DHXkZFedzs4/s1600/44.jpg)
+	* [Transparent Images](http://leagueoflegends.wikia.com/wiki/Champion_Mastery#Rewards)
 
 
 ## Features (planning stage)
