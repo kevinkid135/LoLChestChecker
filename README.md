@@ -20,10 +20,10 @@ This application allows the user to search up a summoner name and see all chest 
 
 ## TODO List
 * Make the portrait glows reflect the tier they're currently in:
-	* Tier 4: Gold
-	* Tier 5: Red
-	* Tier 6: Purple
-	* Tier 7: Emerald
+	* Tier 4: Gold - #2da7a8
+	* Tier 5: Red - #2da7a8
+	* Tier 6: Purple - #ae26b4
+	* Tier 7: Emerald/Teal - #2da7a8
 	* [Master Emote Reference Images](http://1.bp.blogspot.com/-4D5ZQjXvLzo/VQDK1opIjJI/AAAAAAAAlqQ/DHXkZFedzs4/s1600/44.jpg)
 
 
