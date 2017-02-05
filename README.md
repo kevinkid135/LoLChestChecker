@@ -18,7 +18,18 @@ This application allows the user to search up a summoner name and see all chest 
 	
 * Search by champion name
 
-## Planned Features
+## TODO List
+* Make the portrait glows reflect the tier they're currently in:
+	* Tier 4: Gold
+	* Tier 5: Red
+	* Tier 6: Purple
+	* Tier 7: Emerald
+	* [Master Emote Reference Images](http://1.bp.blogspot.com/-4D5ZQjXvLzo/VQDK1opIjJI/AAAAAAAAlqQ/DHXkZFedzs4/s1600/44.jpg)
+
+
+## Features (planning stage)
+These will be features that I've thought of, but have not mapped out its implementation.
+
 * Sort by (client side):
 	* Highest mastery rank
 	* Alphabetical
@@ -26,11 +37,7 @@ This application allows the user to search up a summoner name and see all chest 
 	* Champions without chests (then alphabetical)
 * Hide/show certain champions based on:
 	* Chest availability
-	* champion owned
-
-## Unplanned features
-These will be features that I've thought of, but have not figured out how to implement it yet
-	
+	* champion owned	
 * Create an offline JSON file of static champion information.
 	* This can be a script ran every time the version has changed since the last run.
 	* The JSON file will 2 identical arrays for faster access:
