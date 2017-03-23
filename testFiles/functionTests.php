@@ -102,6 +102,24 @@
         $arr = getSumm_ARRAY($region, 'the best');
         var_dump($arr);
         ?>
+
+        <h3>TR</h3>
+        <?php
+        $arr = getSumm_ARRAY('tr', 'CJ Ghost');
+        var_dump($arr);
+        ?>
+
+        <h3>RU</h3>
+        <?php
+        $arr = getSumm_ARRAY('ru', 'Tetrael');
+        var_dump($arr);
+        ?>
+
+        <h3>EUNE</h3>
+        <?php
+        $arr = getSumm_ARRAY('eune', 'Adben');
+        var_dump($arr);
+        ?>
     </div>
 
     <h3>Testing: getRecentGames</h3>

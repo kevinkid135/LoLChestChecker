@@ -61,18 +61,18 @@
                                 <div class="form-group">
                                     <label for="region" class="sr-only">Region</label>
                                     <select name="region" class="btn btn-default" id="region">
-                                        <option value="NA">NA</option>
+                                        <option value="na">NA</option>
                                         <!-- Find out how to: Sort alphabetically, but will cache old selection -->
-                                        <option value="BR">BR</option>
-                                        <option value="EUNE">EUNE</option>
-                                        <option value="EUW">EUW</option>
-                                        <option value="JP">JP</option>
-                                        <option value="KR">KR</option>
-                                        <option value="LAN">LAN</option>
-                                        <option value="LAS">LAS</option>
-                                        <option value="OCE">OCE</option>
-                                        <option value="RU">RU</option>
-                                        <option value="TR">TR</option>
+                                        <option value="br">BR</option>
+                                        <option value="eune">EUNE</option>
+                                        <option value="euw">EUW</option>
+                                        <option value="jp">JP</option>
+                                        <option value="kr">KR</option>
+                                        <option value="lan">LAN</option>
+                                        <option value="las">LAS</option>
+                                        <option value="oce">OCE</option>
+                                        <option value="ru">RU</option>
+                                        <option value="tr">TR</option>
                                     </select>
                                 </div>
                                 <input type="submit" value="Search" class="btn btn-default" id="summSearch"/>

@@ -23,7 +23,7 @@ include '../php/riotapi.php';
 
 <div class="section">
     <?php
-    var_dump(getChampMasteryList_ARRAY('NA', 70120599));
+    var_dump(getChampMasteryList_ARRAY('eune', 33928259));
     ?>
 </div>
 </body>

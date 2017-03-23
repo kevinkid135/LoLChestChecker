@@ -2,8 +2,8 @@
 // API Variables
 include 'config.php'; // $API_KEY
 $API_KEY = 'api_key=' . $API_KEY;
-$API_URL = 'https://global.api.pvp.net';
-$regionList = array('NA', 'BR', 'EUNE', 'EUW', 'JP', 'KR', 'LAN', 'LAS', 'OCE', 'RU', 'TR');
+$regionList = array('na', 'br', 'eune', 'euw', 'jp', 'kr', 'lan', 'las', 'oce', 'ru', 'tr');
+$regionIDArray = array('na' => 'na1', 'br' => 'br1', 'eune' => 'eun1', 'euw' => 'euw1', 'jp' => 'jp1', 'kr' => 'kr', 'lan' => 'la1', 'las' => 'la2', 'oce' => 'oce1', 'ru' => 'ru', 'tr' => 'tr1');
 
 /****************
  * Helper Functions
@@ -18,11 +18,22 @@ $regionList = array('NA', 'BR', 'EUNE', 'EUW', 'JP', 'KR', 'LAN', 'LAS', 'OCE', 
  *
  * @return string JSON results
  */
-function useCURL($API_URL, $URL2) {
+function useCURL($URL2) {
     $ch = curl_init(); // Initiates cURL
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Disable SSL verification
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // return response
-    curl_setopt($ch, CURLOPT_URL, $API_URL . $URL2); // sets URL
+    curl_setopt($ch, CURLOPT_URL, 'https://global.api.pvp.net' . $URL2); // sets URL
+    $result = curl_exec($ch); // execute cURL
+    curl_close($ch); // close cURL
+    return $result;
+}
+
+function useCURL2($REGION, $URL2) {
+    $REGION = strtolower($REGION);
+    $ch = curl_init(); // Initiates cURL
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Disable SSL verification
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // return response
+    curl_setopt($ch, CURLOPT_URL, 'https://' . $REGION . '.api.riotgames.com' . $URL2); // sets URL
     $result = curl_exec($ch); // execute cURL
     curl_close($ch); // close cURL
     return $result;
@@ -53,9 +64,9 @@ function json2arr($json) {
  */
 function getCurrentVersion($region) {
     global $API_KEY;
-    global $API_URL;
+
     $URL2 = '/api/lol/static-data/' . $region . '/v1.2/versions?' . $API_KEY;
-    $result = useCURL($API_URL, $URL2);
+    $result = useCURL($URL2);
     $result = json2arr($result);
     return $result[0];
 }
@@ -98,9 +109,9 @@ function getSummonerIcon($version, $iconID) {
  */
 function getChampListByKey($region) {
     global $API_KEY;
-    global $API_URL;
+
     $URL2 = '/api/lol/static-data/' . $region . '/v1.2/champion?' . $API_KEY;
-    $result = useCURL($API_URL, $URL2);
+    $result = useCURL($URL2);
     $result = json2arr($result);
     $result = $result[2];
     return $result;
@@ -120,9 +131,9 @@ function getChampListByKey($region) {
  */
 function getChampListById($region) {
     global $API_KEY;
-    global $API_URL;
+
     $URL2 = '/api/lol/static-data/' . $region . '/v1.2/champion?dataById=true&' . $API_KEY;
-    $result = useCURL($API_URL, $URL2);
+    $result = useCURL($URL2);
     $result = json2arr($result);
     $result = $result[2];
     return $result;
@@ -138,9 +149,9 @@ function getChampListById($region) {
  */
 function getChampName($region, $champID) {
     global $API_KEY;
-    global $API_URL;
+
     $URL2 = '/api/lol/static-data/' . $region . '/v1.2/champion/' . $champID . '?' . $API_KEY;
-    $result = useCURL($API_URL, $URL2);
+    $result = useCURL($URL2);
     $result = json2arr($result);
 
     return $result[2];
@@ -183,9 +194,9 @@ function getChampID($region, $championKey) {
  */
 function getChampInfo_ARRAY($region, $champID) {
     global $API_KEY;
-    global $API_URL;
+
     $URL2 = '/api/lol/static-data/' . $region . '/v1.2/champion/' . $champID . '?champData=image&' . $API_KEY;
-    return json2arr(useCURL($API_URL, $URL2));
+    return json2arr(useCURL($URL2));
 }
 
 /******************
@@ -211,23 +222,12 @@ function getChampInfo_ARRAY($region, $champID) {
  */
 function getChampMasteryList_ARRAY($region, $summID) {
     global $API_KEY;
-    global $API_URL;
-    $URL2 = '/championmastery/location/' . $region . '1' . '/player/' . $summID . '/champions?' . $API_KEY;
-    $result = useCURL($API_URL, $URL2);
+    global $regionIDArray;
+    $region = strtolower($region);
+    $regionID = $regionIDArray[$region];
+    $URL2 = '/championmastery/location/' . $regionID . '/player/' . $summID . '/champions?' . $API_KEY;
+    $result = useCURL2($region, $URL2);
     $result = json2arr($result);
-
-    // error code obtained; try removing '1' from region.
-    if (sizeof($result) < 2) {
-        $URL2 = '/championmastery/location/' . $region . '/player/' . $summID . '/champions?' . $API_KEY;
-        $result = useCURL($API_URL, $URL2);
-        $result = json2arr($result);
-
-        // summoner name not found in region
-        if ($result[0]['status_code'] == 403) {
-            echo "Summoner not found in region. Double spelling and region.";
-            return NULL;
-        }
-    }
     return $result;
 }
 
@@ -248,9 +248,9 @@ function getChampMasteryList_ARRAY($region, $summID) {
 function getSumm_ARRAY($region, $summName) {
     $summName = preg_replace('/\s+/', '', $summName); // remove spaces from name
     global $API_KEY;
-    global $API_URL;
+
     $URL2 = '/api/lol/' . $region . '/v1.4/summoner/by-name/' . $summName . '?' . $API_KEY;
-    $result = useCURL($API_URL, $URL2);
+    $result = useCURL2($region, $URL2);
     return json2arr($result)[0];
 }
 
@@ -264,9 +264,9 @@ function getSumm_ARRAY($region, $summName) {
  */
 function getRecentGames($region, $summID) {
     global $API_KEY;
-    global $API_URL;
+
     $URL2 = '/api/lol/' . $region . '/v1.3/game/by-summoner/' . $summID . '/recent?' . $API_KEY;
-    $result = useCURL($API_URL, $URL2);
+    $result = useCURL2($region, $URL2);
     return json2arr($result)[1];
 }
 
