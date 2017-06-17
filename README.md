@@ -1,6 +1,5 @@
 #### Domains:
-* https://lolcc.000webhostapp.com/
-* https://www.lolcc.me
+* http://kevinchan.gwiddle.co.uk/lolcc/
 
 If you are checking this website without any League of Legends background, feel free to search for the name "Kirox3" without quotations. This is my personal game handle.
 
