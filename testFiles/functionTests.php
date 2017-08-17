@@ -8,6 +8,7 @@
 <div id="mainDiv">
     <?php
     $summID = 23240236;
+    $accID = 37271413;
     $region = 'NA';
     ?>
 
@@ -125,7 +126,7 @@
     <h3>Testing: getRecentGames</h3>
     <div class="section">
         <?php
-        $arr = getRecentGames($region, 54392217);
+        $arr = getRecentGames($region, $accID);
         var_dump($arr);
         ?>
     </div>
@@ -137,6 +138,8 @@
         echo $result;
         ?>
     </div>
+
+    <h1>DONE</h1>
 
 </div>
 <script>

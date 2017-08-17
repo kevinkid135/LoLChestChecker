@@ -35,8 +35,11 @@
                 header("Location: errorPage.php");
                 exit();
             }
-            $summID = $summInfo['id'];
+
+            // these variables
+            $summId = $summInfo['id'];
             $summName = $summInfo['name'];
+            $accId = $summInfo['accountId'];
             ?>
 
             <img src="<?php echo getSummonerIcon($version, $summInfo['profileIconId']) ?>"
@@ -62,7 +65,7 @@
                                     <label for="region" class="sr-only">Region</label>
                                     <select name="region" class="btn btn-default" id="region">
                                         <option value="na">NA</option>
-                                        <!-- Find out how to: Sort alphabetically, but will cache old selection -->
+                                        <!-- Find out how to: Sort alphabetically, but will cache old selection using cookies -->
                                         <option value="br">BR</option>
                                         <option value="eune">EUNE</option>
                                         <option value="euw">EUW</option>
@@ -80,13 +83,17 @@
                         </div>
                     </dd>
                     <dt>Summ ID</dt>
-                    <dd><?php echo $summID ?></dd>
+                    <dd><?php echo $summId ?></dd>
+                    <dt>Account ID</dt>
+                    <dd><?php echo $accId ?></dd>
                     <dt>FWOTD</dt>
                     <dd>
                     <span id="fwotd">
                     <?php
-                    $t = fwotdTime($region, $summID) - time();
-                    if ($t <= 0) {
+                    //$t = fwotdTime($region, $accId) - time();
+                    if (true) { // TODO figure out a way to calculate FWOTD
+                        echo "Functionality cannot be calculated anymore due to API changes... Sorry :(";
+                    } else if ($t <= 0) {
                         echo "Available";
                     } else {
                         $hr = gmdate('G', $t);
@@ -101,10 +108,17 @@
                     ?>
                     </span>
                     </dd>
-                    <dt></dt>
+                    <dt>Prev Win</dt>
+                    <dd>
+                        <?php
+                        $milliseconds = fwotdTime($region, $accId);
+
+                        echo date("m-d-Y h:i:sa", $milliseconds / 1000) . " " . date_default_timezone_get();;
+                        ?>
+                    </dd>
                 </dl>
                 <button class="btn btn-info" id="renew-btn"
-                        onclick="renew(<?php echo "'" . $region . "'" ?>, <?php echo $summID ?>)">
+                        onclick="renew(<?php echo "'" . $region . "'" ?>, <?php echo $summId ?>)">
                     Recheck FWOTD
                 </button>
             </div>
@@ -121,7 +135,7 @@
     <div class="container" id="portrait-list">
         <!-- Show all champions -->
         <?php
-        $masteryList = getChampMasteryList_ARRAY($region, $summID);
+        $masteryList = getChampMasteryList_ARRAY($region, $summId);
         $champListArray = getChampListById($region);
 
         /*
@@ -151,6 +165,7 @@
         ?>
         <script>
             <?php
+            // sort by key
             $masterArrayByKey = array();
             foreach ($masterArrayById as $arr) {
                 $masterArrayByKey[$arr['key']] = $arr;
@@ -163,7 +178,7 @@
         <?php
         //sort based on chestGranted
         uasort($masterArrayById, function ($a, $b) {
-            // sort based on chest Granted
+            // anonymous function to sort based on chestGranted
             if ($a['chestGranted'] && !$b['chestGranted']) {
                 return -1;
             } elseif (!$a['chestGranted'] && $b['chestGranted']) {

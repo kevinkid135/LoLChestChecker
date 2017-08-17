@@ -3,6 +3,7 @@
 include 'config.php'; // $API_KEY
 $API_KEY = 'api_key=' . $API_KEY;
 $regionList = array('na', 'br', 'eune', 'euw', 'jp', 'kr', 'lan', 'las', 'oce', 'ru', 'tr');
+// due to legacy reasons, we have to convert the region string into an ID.
 $regionIDArray = array('na' => 'na1', 'br' => 'br1', 'eune' => 'eun1', 'euw' => 'euw1', 'jp' => 'jp1', 'kr' => 'kr', 'lan' => 'la1', 'las' => 'la2', 'oce' => 'oce1', 'ru' => 'ru', 'tr' => 'tr1');
 
 /****************
@@ -29,7 +30,8 @@ function useCURL($URL2) {
 }
 
 function useCURL2($REGION, $URL2) {
-    $REGION = strtolower($REGION);
+    global $regionIDArray;
+    $REGION = $regionIDArray[strtolower($REGION)];
     $ch = curl_init(); // Initiates cURL
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Disable SSL verification
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // return response
@@ -48,7 +50,8 @@ function useCURL2($REGION, $URL2) {
  * @return array
  */
 function json2arr($json) {
-    return array_values(json_decode($json, true));
+    //    return array_values(json_decode($json, true));
+    return (json_decode($json, true));
 }
 
 /*****************************
@@ -65,8 +68,8 @@ function json2arr($json) {
 function getCurrentVersion($region) {
     global $API_KEY;
 
-    $URL2 = '/api/lol/static-data/' . $region . '/v1.2/versions?' . $API_KEY;
-    $result = useCURL($URL2);
+    $URL2 = '/lol/static-data/v3/versions?' . $API_KEY;
+    $result = useCURL2($region, $URL2);
     $result = json2arr($result);
     return $result[0];
 }
@@ -110,10 +113,10 @@ function getSummonerIcon($version, $iconID) {
 function getChampListByKey($region) {
     global $API_KEY;
 
-    $URL2 = '/api/lol/static-data/' . $region . '/v1.2/champion?' . $API_KEY;
-    $result = useCURL($URL2);
+    $URL2 = '/lol/static-data/v3/champions?' . $API_KEY;
+    $result = useCURL2($region, $URL2);
     $result = json2arr($result);
-    $result = $result[2];
+    $result = $result['data'];
     return $result;
 }
 
@@ -132,10 +135,10 @@ function getChampListByKey($region) {
 function getChampListById($region) {
     global $API_KEY;
 
-    $URL2 = '/api/lol/static-data/' . $region . '/v1.2/champion?dataById=true&' . $API_KEY;
-    $result = useCURL($URL2);
+    $URL2 = '/lol/static-data/v3/champions?dataById=true&' . $API_KEY;
+    $result = useCURL2($region, $URL2);
     $result = json2arr($result);
-    $result = $result[2];
+    $result = $result['data'];
     return $result;
 }
 
@@ -145,23 +148,23 @@ function getChampListById($region) {
  * @param string $region
  * @param string $champID
  *
- * @return string The champion's name
+ * @return string The champion's name given its ID
  */
 function getChampName($region, $champID) {
     global $API_KEY;
 
-    $URL2 = '/api/lol/static-data/' . $region . '/v1.2/champion/' . $champID . '?' . $API_KEY;
-    $result = useCURL($URL2);
+    $URL2 = '/lol/static-data/v3/champions/' . $champID . '?' . $API_KEY;
+    $result = useCURL2($region, $URL2);
     $result = json2arr($result);
 
-    return $result[2];
+    return $result['name'];
 }
 
 /**
  * Returns the champion ID given region and champion key.
  *
  * @param string $region
- * @param string $championKey First letter capital, not space
+ * @param string $championKey First letter capital, no space
  *
  * @return int The champion ID
  */
@@ -186,17 +189,17 @@ function getChampID($region, $championKey) {
  *
  * @return array
  * Array of detailed information regarding a specific champion:<br>
- * [id] int <br>
+ * [image] imageDto <br>
+ * [title] string <br>
  * [name] string <br>
  * [key] string <br>
- * [title] string <br>
- * [image] imageDto <br>
+ * [id] int <br>
  */
 function getChampInfo_ARRAY($region, $champID) {
     global $API_KEY;
 
-    $URL2 = '/api/lol/static-data/' . $region . '/v1.2/champion/' . $champID . '?champData=image&' . $API_KEY;
-    return json2arr(useCURL($URL2));
+    $URL2 = '/lol/static-data/v3/champions/' . $champID . '?champData=image&' . $API_KEY;
+    return json2arr(useCURL2($region, $URL2));
 }
 
 /******************
@@ -206,26 +209,24 @@ function getChampInfo_ARRAY($region, $champID) {
 /**
  * Mastery information on every champion obtained by summoner array of champions (use index) <br>
  *
- * @param string $region
  * @param string $summID
  *
  * @return array
  * An array of champions, specifically about champion mastery:<br>
+ * [playerId] int <br>
  * [championID] int <br>
  * [championLevel] int <br>
  * [championPoints] int <br>
- * [championPointsSinceLastLevel] long <br>
- * [championPointsUntilNextLevel] long <br>
+ * [lastPlayTime] float <br>
+ * [championPointsSinceLastLevel] int <br>
+ * [championPointsUntilNextLevel] int <br>
  * [chestGranted] boolean <br>
- * [lastPlayTime] long <br>
- * [playerId] long
+ * [tokensEarned] int <br>
  */
 function getChampMasteryList_ARRAY($region, $summID) {
     global $API_KEY;
-    global $regionIDArray;
     $region = strtolower($region);
-    $regionID = $regionIDArray[$region];
-    $URL2 = '/championmastery/location/' . $regionID . '/player/' . $summID . '/champions?' . $API_KEY;
+    $URL2 = '/lol/champion-mastery/v3/champion-masteries/by-summoner/' . $summID . '?' . $API_KEY;
     $result = useCURL2($region, $URL2);
     $result = json2arr($result);
     return $result;
@@ -249,9 +250,20 @@ function getSumm_ARRAY($region, $summName) {
     $summName = preg_replace('/\s+/', '', $summName); // remove spaces from name
     global $API_KEY;
 
-    $URL2 = '/api/lol/' . $region . '/v1.4/summoner/by-name/' . $summName . '?' . $API_KEY;
+    $URL2 = '/lol/summoner/v3/summoners/by-name/' . $summName . '?' . $API_KEY;
     $result = useCURL2($region, $URL2);
-    return json2arr($result)[0];
+    return json2arr($result);
+}
+
+/**
+ * Returns the account ID
+ *
+ * @param $region
+ * @param $summName
+ * @return int
+ */
+function getAccId($region, $summName) {
+    return getSumm_ARRAY($region, $summName)['accountId'];
 }
 
 /**
@@ -262,12 +274,28 @@ function getSumm_ARRAY($region, $summName) {
  *
  * @return array list of recent matches
  */
-function getRecentGames($region, $summID) {
+function getRecentGames($region, $accID) {
     global $API_KEY;
 
-    $URL2 = '/api/lol/' . $region . '/v1.3/game/by-summoner/' . $summID . '/recent?' . $API_KEY;
+    $URL2 = '/lol/match/v3/matchlists/by-account/' . $accID . '/recent?' . $API_KEY;
     $result = useCURL2($region, $URL2);
-    return json2arr($result)[1];
+    return json2arr($result)['matches'];
+}
+
+/**
+ * Given the matchID, get the array regarding the match. <br>
+ * Function is used to calculate first win of the day
+ *
+ * @param $region
+ * @param $matchID
+ * @param $accID
+ * @return array JSON data regarding the match
+ */
+function getMatch($region, $matchID, $accID) {
+    global $API_KEY;
+    $URL2 = '/lol/match/v3/matches/' . $matchID . '?forAccountId=' . $accID . '&' . $API_KEY;
+    $result = useCURL2($region, $URL2);
+    return $result;
 }
 
 /**
@@ -278,28 +306,69 @@ function getRecentGames($region, $summID) {
  *
  * @return int time in seconds until first win of the day is available. <br>
  * 0 = available now <br>
- * -1 = no game found
+ * -1 = no game found which would indicate that haven't played in a while, and it should be up
  */
-function fwotdTime($region, $summID) {
-    $recentGames = getRecentGames($region, $summID);
+function fwotdTime($region, $accID) {
+    $gameEndTime = -1;
+    $recentGames = getRecentGames($region, $accID);
+    // loop through each game, and find if it's a win or not
     foreach ($recentGames as $game) {
-        if ($game['gameType'] == 'MATCHED_GAME' && $game['stats']['win'] == true) {
-            $currentTime = time();
-            $gameTimeInSec = floor($game['createDate'] / 1000);
-            if ($currentTime - $gameTimeInSec < 79200) {
-                if ($game['ipEarned'] > 150) {
-                    return $gameTimeInSec + 79200;
-                } else {
-                    // go to next game
-                }
-            } else {
-                return 0;
+        // grab the matchId
+        $matchId = $game['gameId'];
+        // use matchID to locate game (in array form)
+        $matchArr = json2arr(getMatch($region, $matchId, $accID));
+        // go inside "participantIdentities" and find out which one contains a length of 2
+        // grab the participant index of that
+        $participantId = -1;
+
+        foreach ($matchArr['participantIdentities'] as $participant) {
+            if (count($participant) == 2 && $participant['player']['accountId'] == $accID) {
+                $participantId = $participant['participantId'];
+                break;
             }
-        } else {
-            // game does not count as FWOTD
-            // go to next game
         }
+
+        // assert that we've found the participant
+        if ($participantId == -1) {
+            return -1;
+        }
+        // go inside "participants", and use participantID to get teamID
+        $teamId = -1;
+        foreach ($matchArr['participants'] as $participant) {
+            if ($participant['participantId'] == $participantId) {
+                $teamId = $participant['teamId'];
+            }
+        }
+
+        // assert that we've found the team
+        if ($teamId == -1) {
+            return -1;
+        }
+
+        // use teamID and go into "teams"
+        // check if they won
+        foreach ($matchArr['teams'] as $team) {
+            if ($team['teamId'] == $teamId) {
+                if ($team['win'] != "Win") {
+                    // tie/lost
+                } else {
+                    // they won
+                    // game start time
+                    $gameStartTime = $matchArr['gameCreation'];
+                    // duration
+                    $gameDuration = $matchArr['gameDuration'];
+
+                    $gameEndTime = $gameStartTime + $gameDuration;
+                    break;
+                }
+            }
+        }
+
+        if ($gameEndTime != -1) {
+            break;
+        }
+
     }
-    return -1;
+    return $gameEndTime; // TODO IP earned has been depricated. Find how to calculate with other data
 }
 

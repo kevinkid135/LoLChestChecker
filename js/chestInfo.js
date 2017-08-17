@@ -7,7 +7,7 @@
 function renew(r, id) {
     $("#fwotd").fadeOut("slow",
         function () {
-            $.get("../php/fwotdCalc.php?region=" + r + "&summID=" + id, function (data) {
+            $.get("../php/fwotdCalc.php?region=" + r + "&summId=" + id, function (data) {
                 document.getElementById("fwotd").innerHTML = data;
                 $("#fwotd").fadeIn("slow");
             });

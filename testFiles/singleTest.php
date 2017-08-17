@@ -13,17 +13,15 @@ include '../php/riotapi.php';
     <input type="submit" value="Search"/>
 </form>
 
-<div class="section">
-    <?php
-    $summID = 23240236;
-    $recentGames = getRecentGames('NA', $summID);
-    var_dump($recentGames);
-    ?>
-</div>
+<?php
+$summID = 23240236;
+$accID = 37271413;
+$region = 'NA';
+?>
 
 <div class="section">
     <?php
-    var_dump(getChampMasteryList_ARRAY('eune', 33928259));
+    echo "This is the fwotd time: " . fwotdTime($region, $accID);
     ?>
 </div>
 </body>
