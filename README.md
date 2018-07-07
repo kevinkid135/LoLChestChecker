@@ -1,4 +1,4 @@
-If you are checking this website without any League of Legends background, feel free to search for the name "Kirox3" without quotations. This is my personal game handle.
+Due to the deprication of normal games API endpoint, there's no possible way of obtaining FWOTD.
 
 # About
 This application allows the user to search up a summoner name and see the chest availability for each champion, as well as view your first win of the day (precision in seconds). All data will be obtained from the official Riot Games API. 
