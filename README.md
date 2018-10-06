@@ -1,16 +1,18 @@
-Due to the deprication of normal games API endpoint, there's no possible way of obtaining FWOTD.
+
 
 # About
 This application allows the user to search up a summoner name and see the chest availability for each champion, as well as view your first win of the day (precision in seconds). All data will be obtained from the official Riot Games API. 
 
 ## Current Features
 * Display champion portraits and graphically show if the chest is unlocked or not
+* Hover to display champion score
 * Sorted by:
 	* champions with chests
 	* alphabetically
 	
-* FWOTD Calculator
-	* Determines whether FWOTD is up. If not, it will tell you how much time is left.
+* ~~FWOTD Calculator~~
+	* ~~Determines whether FWOTD is up. If not, it will tell you how much time is left.~~
+	* Due to the deprication of normal games API endpoint, there's no possible way of obtaining FWOTD.
 	
 * Search by champion name
 
